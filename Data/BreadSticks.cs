@@ -14,17 +14,46 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The name of the Breadsticks instance
         /// </summary>
-        public string Name { get; } = "";
+        public string Name { get; } = "Breadsticks";
 
         /// <summary>
         /// The description of the Breadsticks instance
         /// </summary>
-        public string Description { get; } = "";
+        public string Description { get; } = "Soft buttery breadsticks";
+
+        /// <summary>
+        /// private backing field for the Count Property
+        /// </summary>
+        private uint _count = 8;
 
         /// <summary>
         /// The ammount of sticks in this Breadsticks instance
         /// </summary>
-        public uint Count { get; set; } = 8;
+        public uint Count 
+        {
+            get
+            {
+                return _count;
+            }
+            set
+            {
+                if (value >= 1)
+                {
+                    if (value <= 12)
+                    {
+                        _count = value;
+                    }
+                    else
+                    {
+                        _count = 12;
+                    }
+                }
+                else 
+                {
+                    _count = 1;
+                }
+            }
+        }
 
         /// <summary>
         /// Whether this Breadsticks instance contains Pepperoni
@@ -34,17 +63,44 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of the Breadsticks instance
         /// </summary>
-        public decimal Price { get; }
+        public decimal Price 
+        {
+            get
+            {
+                if(Cheese)
+                {
+                    return Count * 1.00m;
+                }
+                else
+                {
+                    return Count * 0.75m;
+                }
+            }
+        }
 
         /// <summary>
         /// The calories per stick in the Breadsticks instance
         /// </summary>
-        public uint CaloriesPerEach { get; }
+        public uint CaloriesPerEach 
+        {
+            get
+            {
+                uint calories = 150u;
+                if (Cheese) calories += 50;
+                return calories;
+            }
+        }
 
         /// <summary>
         /// The total calories in the Breadsticks instance
         /// </summary>
-        public uint CaloriesTotal { get; }
+        public uint CaloriesTotal
+        {
+            get
+            {
+                return Count * CaloriesPerEach;
+            }
+        }
 
         /// <summary>
         /// Special instructions for the preperation for the Breadsticks instance
