@@ -103,7 +103,7 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// Special instructions for the preparation of this FlyingSaucer
+        /// Special instructions for the preparation of this SupremePizza
         /// </summary>
         public IEnumerable<string> SpecialInstructions
         {
