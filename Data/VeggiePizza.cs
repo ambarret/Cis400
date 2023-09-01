@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace PizzaParlor.Data
 {
+    /// <summary>
+    /// THe Veggie Pizza class
+    /// </summary>
     public class VeggiePizza
     {
         /// <summary>
         /// The name of the VeggiePizza instance
         /// </summary>
-        public string Name { get; } = "";
+        public string Name { get; } = "Veggie Pizza";
 
         /// <summary>
         /// The description of the VeggiePizza instance
         /// </summary>
-        public string Description { get; } = "";
+        public string Description { get; } = "All the veggies";
 
         /// <summary>
         /// Whether this VeggiePizza instance contains Olives
@@ -46,17 +49,34 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of the VeggiePizza instance
         /// </summary>
-        public decimal Price { get; }
+        public decimal Price { get; } = 12.99m;
 
         /// <summary>
         /// The calories per slice in the VeggiePizza instance
         /// </summary>
-        public uint CaloriesPerEach { get; }
+        public uint CaloriesPerEach 
+        {
+            get 
+            {
+                uint calories = 250;
+                if (Onions) calories += 5;
+                if (Peppers) calories += 5;
+                if (Mushrooms) calories += 5;
+                if (Olives) calories += 5;
+                return calories;
+            } 
+        }
 
         /// <summary>
         /// The total calories in the VeggiePizza instance
         /// </summary>
-        public uint CaloriesTotal { get; }
+        public uint CaloriesTotal 
+        {
+            get
+            {
+                return CaloriesPerEach * Slices;
+            }
+        }
 
         /// <summary>
         /// Special instructions for the preperation for the VeggiePizza instance

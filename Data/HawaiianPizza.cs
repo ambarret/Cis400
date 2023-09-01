@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace PizzaParlor.Data
 {
+    /// <summary>
+    /// the Hawaiian Pizza class
+    /// </summary>
     public class HawaiianPizza
     {
         /// <summary>
         /// The name of the HawaiianPizza instance
         /// </summary>
-        public string Name { get; } = "";
+        public string Name { get; } = "Hawaiian Pizza";
 
         /// <summary>
         /// The description of the HawaiianPizza instance
         /// </summary>
-        public string Description { get; } = "";
+        public string Description { get; } = "The pizza with pineapple";
 
         /// <summary>
         /// Whether this HawaiianPizza instance contains Onions
@@ -41,17 +44,33 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of the HawaiianPizza instance
         /// </summary>
-        public decimal Price { get; }
+        public decimal Price { get; } = 13.99m;
 
         /// <summary>
         /// The calories per slice in the HawaiianPizza instance
         /// </summary>
-        public uint CaloriesPerEach { get; }
+        public uint CaloriesPerEach 
+        {
+            get
+            {
+                uint calories = 250;
+                if (Ham) calories += 30;
+                if (Pineapple) calories += 15;
+                if (Onions) calories += 5;
+                return calories;
+            }
+        }
 
         /// <summary>
         /// The total calories in the HawaiianPizza instance
         /// </summary>
-        public uint CaloriesTotal { get; }
+        public uint CaloriesTotal 
+        {
+            get
+            {
+                return (CaloriesPerEach * Slices);
+            } 
+        }
 
         /// <summary>
         /// Special instructions for the preperation for the HawaiianPizza instance

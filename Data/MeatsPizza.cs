@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace PizzaParlor.Data
 {
     /// <summary>
-    /// The Meats pizzaclass
+    /// The Meats pizza class
     /// </summary>
     public class MeatsPizza
     {
         /// <summary>
         /// The name of the MeatsPizza instance
         /// </summary>
-        public string Name { get; } = "";
+        public string Name { get; } = "Meats Pizza";
 
         /// <summary>
         /// The description of the MeatsPizza instance
         /// </summary>
-        public string Description { get; } = "";
+        public string Description { get; } = "All the meats";
 
         /// <summary>
         /// Whether this MeatsPizza instance contains Sausage
@@ -49,17 +49,34 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of the MeatsPizza instance
         /// </summary>
-        public decimal Price { get; }
+        public decimal Price { get; } = 15.99m;
 
         /// <summary>
         /// The calories per slice in the MeatsPizza instance
         /// </summary>
-        public uint CaloriesPerEach { get; }
+        public uint CaloriesPerEach 
+        {
+            get
+            {
+                uint calories = 250;
+                if (Sausage) calories += 60;
+                if (Ham) calories += 30;
+                if (Bacon) calories += 30;
+                if (Pepperoni) calories += 30;
+                return calories;
+            }
+        }
 
         /// <summary>
         /// The total calories in the MeatsPizza instance
         /// </summary>
-        public uint CaloriesTotal { get; }
+        public uint CaloriesTotal 
+        {
+            get
+            {
+                return (CaloriesPerEach * Slices);
+            }
+        }
 
         /// <summary>
         /// Special instructions for the preperation for the MeatsPizza instance
