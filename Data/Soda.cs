@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using PizzaParlor.Data.Enums;
 
 namespace PizzaParlor.Data
 {
@@ -85,6 +86,38 @@ namespace PizzaParlor.Data
                 if (DrinkSize == Size.Large) return 2.50m;
                 if (DrinkSize == Size.Small) return 1.50m;
                 return 2.00m;
+            }
+        }
+
+        /// <summary>
+        /// The calories of this soda instance
+        /// </summary>
+        public uint Calories
+        {
+            get
+            {
+                if (DrinkType == SodaFlavor.DietCoke) return 0;
+                else
+                {
+                    if (DrinkSize == Size.Small) return 150;
+                    if (DrinkSize == Size.Large) return 250;
+                    return 200;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Special instructions for the preparation of this Soda instance
+        /// </summary>
+        public IEnumerable<string> SpecialInstructions
+        {
+            get
+            {
+                List<string> instructions = new();
+                instructions.Add(DrinkSize.ToString());
+                instructions.Add(DrinkType.ToString());
+                if (!Ice) instructions.Add("Hold Ice");
+                return instructions;
             }
         }
     }

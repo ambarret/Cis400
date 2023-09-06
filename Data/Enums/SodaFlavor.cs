@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Enums
 {
     /// <summary>
     /// enum that has all the soda flavors

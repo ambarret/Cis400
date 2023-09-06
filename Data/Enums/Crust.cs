@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Enums
 {
     /// <summary>
-    /// enum for all the sauces for Wings
+    /// An enum for all possible crusts for pizza
     /// </summary>
-    public enum WingSauce
+    public enum Crust
     {
-        Mild,
-        Medium,
-        Hot,
-        HoneyBBQ
+        Thin,
+        Original,
+        DeepDish
     }
 }

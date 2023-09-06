@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Breadsticks
 {
     /// <summary>
     /// The Garlic Knots Class
@@ -37,7 +37,7 @@ namespace PizzaParlor.Data
             }
             set
             {
-                if (value >= 1)
+                if (value >= 4)
                 {
                     if (value <= 12)
                     {
@@ -50,7 +50,7 @@ namespace PizzaParlor.Data
                 }
                 else
                 {
-                    _count = 1;
+                    _count = 8;
                 }
             }
         }
@@ -58,7 +58,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of the Garlic Knots instance
         /// </summary>
-        public decimal Price 
+        public decimal Price
         {
             get
             {

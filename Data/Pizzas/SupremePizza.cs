@@ -1,6 +1,6 @@
-﻿using System.Drawing;
+﻿using PizzaParlor.Data.Enums;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Pizzas
 {
     /// <summary>
     /// The definition of the SupremePizza class
@@ -54,6 +54,50 @@ namespace PizzaParlor.Data
         public bool Mushrooms { get; set; } = true;
 
         /// <summary>
+        /// Private backing field for PizzaSize
+        /// </summary>
+        private Size _size = Size.Medium;
+
+        /// <summary>
+        /// The Size of this Supreme Pizza instance
+        /// </summary>
+        public Size PizzaSize
+        {
+            get
+            {
+                return _size;
+            }
+            set
+            {
+                if (value == Size.Large) _size = Size.Large;
+                if (value == Size.Medium) _size = Size.Medium;
+                if (value == Size.Small) _size = Size.Small;
+            }
+        }
+
+        /// <summary>
+        /// Private backing field for PizzaCrust
+        /// </summary>
+        private Crust _crust = Crust.Original;
+
+        /// <summary>
+        /// The Crust for this Supreme Pizza instance
+        /// </summary>
+        public Crust PizzaCrust
+        {
+            get
+            {
+                return _crust;
+            }
+            set
+            {
+                if (value == Crust.Thin) _crust = Crust.Thin;
+                if (value == Crust.Original) _crust = Crust.Original;
+                if (value == Crust.DeepDish) _crust = Crust.DeepDish;
+            }
+        }
+
+        /// <summary>
         /// The number of slices in this SupremePizza instance
         /// </summary>
         public uint Slices { get; } = 8;
@@ -65,7 +109,11 @@ namespace PizzaParlor.Data
         {
             get
             {
-                return 13.99m;
+                decimal price = 13.99m;
+                if (PizzaSize == Size.Small) price -= 2.00m;
+                if (PizzaSize == Size.Large) price += 2.00m;
+                if (PizzaCrust == Crust.DeepDish) price += 1.00m;
+                return price;
             }
         }
 
@@ -76,15 +124,19 @@ namespace PizzaParlor.Data
         {
             get
             {
-                uint cals = 250;
 
+                uint cals = 0;
+                if (PizzaCrust == Crust.Thin) cals += 150;
+                if (PizzaCrust == Crust.Original) cals += 250;
+                if (PizzaCrust == Crust.DeepDish) cals += 300;
                 if (Sausage) cals += 30;
                 if (Pepperoni) cals += 20;
                 if (Olives) cals += 5;
                 if (Peppers) cals += 5;
                 if (Onions) cals += 5;
                 if (Mushrooms) cals += 5;
-
+                if (PizzaSize == Size.Small) return (uint)(cals * 0.75);
+                if (PizzaSize == Size.Large) return (uint)(cals * 1.30);
                 return cals;
             }
         }
@@ -110,7 +162,8 @@ namespace PizzaParlor.Data
             get
             {
                 List<string> instructions = new();
-
+                instructions.Add(PizzaSize.ToString());
+                instructions.Add(PizzaCrust.ToString());
                 if (!Sausage) instructions.Add("Hold Sausage");
                 if (!Pepperoni) instructions.Add("Hold Pepperoni");
                 if (!Olives) instructions.Add("Hold Olives");

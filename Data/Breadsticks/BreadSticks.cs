@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Breadsticks
 {
     /// <summary>
-    /// The CinnamonSticks class
+    /// The BreadStick class
     /// </summary>
-    public class CinnamonSticks
+    public class BreadSticks
     {
         /// <summary>
-        /// The name of the Cinnamonsticks instance
+        /// The name of the Breadsticks instance
         /// </summary>
-        public string Name { get; } = "Cinnamon Sticks";
+        public string Name { get; } = "Breadsticks";
 
         /// <summary>
-        /// The description of the Cinnamonsticks instance
+        /// The description of the Breadsticks instance
         /// </summary>
-        public string Description { get; } = "Like breadsticks but for dessert";
+        public string Description { get; } = "Soft buttery breadsticks";
 
         /// <summary>
-        /// Private backing for Count
+        /// private backing field for the Count Property
         /// </summary>
         private uint _count = 8;
 
         /// <summary>
-        /// The ammount of sticks in this Cinnamonsticks instance
+        /// The ammount of sticks in this Breadsticks instance
         /// </summary>
         public uint Count
         {
@@ -38,7 +37,7 @@ namespace PizzaParlor.Data
             }
             set
             {
-                if (value >= 1)
+                if (value >= 4)
                 {
                     if (value <= 12)
                     {
@@ -51,68 +50,68 @@ namespace PizzaParlor.Data
                 }
                 else
                 {
-                    _count = 1;
+                    _count = 8;
                 }
             }
         }
 
         /// <summary>
-        /// Whether this Cinnamonsticks instance contains Frosting
+        /// Whether this Breadsticks instance contains Pepperoni
         /// </summary>
-        public bool Frosting { get; set; } = true;
+        public bool Cheese { get; set; } = false;
 
         /// <summary>
-        /// The price of the Cinnamonsticks instance
+        /// The price of the Breadsticks instance
         /// </summary>
-        public decimal Price 
+        public decimal Price
         {
             get
             {
-                if(Frosting)
+                if (Cheese)
                 {
-                    return 0.90m * Count;
+                    return Count * 1.00m;
                 }
                 else
                 {
-                    return 0.75m * Count;
+                    return Count * 0.75m;
                 }
-            } 
+            }
         }
 
         /// <summary>
-        /// The calories per stick in the Cinnamonsticks instance
+        /// The calories per stick in the Breadsticks instance
         /// </summary>
-        public uint CaloriesPerEach 
+        public uint CaloriesPerEach
         {
             get
             {
-                uint calories = 160u;
-                if (Frosting) calories += 30;
+                uint calories = 150u;
+                if (Cheese) calories += 50;
                 return calories;
             }
         }
 
         /// <summary>
-        /// The total calories in the Cinnamonsticks instance
+        /// The total calories in the Breadsticks instance
         /// </summary>
-        public uint CaloriesTotal 
+        public uint CaloriesTotal
         {
             get
             {
-                return CaloriesPerEach * Count;
+                return Count * CaloriesPerEach;
             }
         }
 
         /// <summary>
-        /// Special instructions for the preperation for the Cinnamonsticks instance
+        /// Special instructions for the preperation for the Breadsticks instance
         /// </summary>
         public IEnumerable<string> SpecialInstructions
         {
             get
             {
                 List<string> instructions = new();
-                instructions.Add($"{Count} CinnamonSticks");
-                if(!Frosting) instructions.Add("Hold Frosting");
+                if (!Cheese) instructions.Add($"{Count} BreadSticks");
+                else instructions.Add($"{Count} CheeseSticks");
                 return instructions;
             }
         }

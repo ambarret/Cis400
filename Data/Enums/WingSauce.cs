@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Enums
 {
     /// <summary>
-    /// The size enum for drinks and foods in the menu
+    /// enum for all the sauces for Wings
     /// </summary>
-    public enum Size
+    public enum WingSauce
     {
-        Small,
+        Mild,
         Medium,
-        Large
+        Hot,
+        HoneyBBQ
     }
 }

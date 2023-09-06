@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Enums
 {
     /// <summary>
-    /// An enum for all possible crusts for pizza
+    /// The size enum for drinks and foods in the menu
     /// </summary>
-    public enum Crust
+    public enum Size
     {
-        Thin,
-        Original,
-        DeepDish
+        Small,
+        Medium,
+        Large
     }
 }
