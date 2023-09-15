@@ -37,20 +37,10 @@ namespace PizzaParlor.Data.Breadsticks
             }
             set
             {
-                if (value >= 4)
+                if (value >= 4 && value <= 12)
                 {
-                    if (value <= 12)
-                    {
-                        _count = value;
-                    }
-                    else
-                    {
-                        _count = 12;
-                    }
-                }
-                else
-                {
-                    _count = 8;
+
+                    _count = value;
                 }
             }
         }
@@ -90,7 +80,7 @@ namespace PizzaParlor.Data.Breadsticks
             get
             {
                 List<string> instructions = new();
-                instructions.Add($"{Count} Garlic knots");
+                instructions.Add($"{Count} Garlic Knots");
                 return instructions;
             }
         }

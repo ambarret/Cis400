@@ -167,8 +167,8 @@ namespace PizzaParlor.Data.Pizzas
                 if (!Sausage) instructions.Add("Hold Sausage");
                 if (!Pepperoni) instructions.Add("Hold Pepperoni");
                 if (!Olives) instructions.Add("Hold Olives");
-                if (!Onions) instructions.Add("Hold Onions");
                 if (!Peppers) instructions.Add("Hold Peppers");
+                if (!Onions) instructions.Add("Hold Onions");
                 if (!Mushrooms) instructions.Add("Hold Mushrooms");
                 return instructions;
             }

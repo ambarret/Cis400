@@ -32,7 +32,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// Private backing field for DrinkSize
         /// </summary>
-        public Size _size = Size.Medium;
+        private Size _size = Size.Medium;
 
         /// <summary>
         /// The size of this soda instance
@@ -55,7 +55,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// private backing field for the DrinkType
         /// </summary>
-        public SodaFlavor _flavor = SodaFlavor.Coke;
+        private SodaFlavor _flavor = SodaFlavor.Coke;
 
         /// <summary>
         /// The Drink Type for this soda instance

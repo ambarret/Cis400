@@ -66,20 +66,9 @@ namespace PizzaParlor.Data
             }
             set
             {
-                if (value >= 4)
+                if (value >= 4 && value <= 12)
                 {
-                    if (value <= 12)
-                    {
-                        _count = value;
-                    }
-                    else
-                    {
-                        _count = 12;
-                    }
-                }
-                else
-                {
-                    _count = 4;
+                     _count = value;
                 }
             }
         }
