@@ -9,7 +9,7 @@ namespace PizzaParlor.Data.Breadsticks
     /// <summary>
     /// The BreadStick class
     /// </summary>
-    public class BreadSticks
+    public class BreadSticks : IMenuItem
     {
         /// <summary>
         /// The name of the Breadsticks instance

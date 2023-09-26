@@ -1,46 +1,71 @@
-﻿using PizzaParlor.Data.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PizzaParlor.Data.Enums;
 
 namespace PizzaParlor.Data.Pizzas
 {
     /// <summary>
-    /// The Meats pizza class
+    /// Class for Custom built pizzas
     /// </summary>
-    public class MeatsPizza : IMenuItem
+    public class Pizza : IMenuItem
     {
-        /// <summary>
-        /// The name of the MeatsPizza instance
-        /// </summary>
-        public string Name { get; } = "Meats Pizza";
+        public Pizza()
+        {
+            PossibleToppings.Add(new PizzaTopping(Topping.Sausage, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Pepperoni, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Ham, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Bacon, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Olives, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Onions, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Peppers, false));
+            PossibleToppings.Add(new PizzaTopping(Topping.Pineapple, false));
+
+        }
 
         /// <summary>
-        /// The description of the MeatsPizza instance
+        /// Adds a topping to the Pizza
         /// </summary>
-        public string Description { get; } = "All the meats";
+        /// <param name="t">The topping to add</param>
+        public void AddTopping(Topping t)
+        {
+            PossibleToppings.Remove(new PizzaTopping(t, false));
+            PossibleToppings.Remove(new PizzaTopping(t, true));
+            PossibleToppings.Add(new PizzaTopping(t, true));
+
+        }
 
         /// <summary>
-        /// Whether this MeatsPizza instance contains Sausage
+        /// Removes a topping to the Pizza
         /// </summary>
-        public bool Sausage { get; set; } = true;
+        /// <param name="t">The topping to Remove</param>
+        public void RemoveTopping(Topping t)
+        {
+            PizzaTopping search = new(t, true);
+            if (PossibleToppings.Contains(search))
+            {
+                PossibleToppings.Remove(search);
+                PossibleToppings.Add(new PizzaTopping(t, false));
+            }
+        }
 
         /// <summary>
-        /// Whether this MeatsPizza instance contains Pepperoni
+        /// The name for this Pizza instance
         /// </summary>
-        public bool Pepperoni { get; set; } = true;
+        public virtual string Name { get; } = "Build-Your-Own Pizza";
 
         /// <summary>
-        /// Whether this MeatsPizza instance contains Ham
+        /// The Description for this pizza
         /// </summary>
-        public bool Ham { get; set; } = true;
+        public virtual string Description { get; } = "A pizza you get to build";
 
         /// <summary>
-        /// Whether this MeatsPizza instance contains Bacon
+        /// The ammount of slices in this pizza
         /// </summary>
-        public bool Bacon { get; set; } = true;
+        public uint Slices { get; } = 8;
 
         /// <summary>
         /// Private backing field for PizzaSize
@@ -48,7 +73,7 @@ namespace PizzaParlor.Data.Pizzas
         private Size _size = Size.Medium;
 
         /// <summary>
-        /// The Size of this Meats Pizza instance
+        /// The Size of this Pizza instance
         /// </summary>
         public Size PizzaSize
         {
@@ -70,7 +95,7 @@ namespace PizzaParlor.Data.Pizzas
         private Crust _crust = Crust.Original;
 
         /// <summary>
-        /// The Crust for this Meats Pizza instance
+        /// The Crust for this Pizza instance
         /// </summary>
         public Crust PizzaCrust
         {
@@ -87,27 +112,31 @@ namespace PizzaParlor.Data.Pizzas
         }
 
         /// <summary>
-        /// The ammount of slices in this MeatsPizza instance
+        /// List of the possible toppings for this pizza
         /// </summary>
-        public uint Slices { get; set; } = 8;
+        public List<PizzaTopping> PossibleToppings { get; } = new List<PizzaTopping>();
 
         /// <summary>
-        /// The price of the MeatsPizza instance
+        /// The price of the pizza
         /// </summary>
-        public decimal Price 
+        public virtual decimal Price
         {
             get
             {
-                decimal price = 15.99m;
+                decimal price = 9.99m;
                 if (PizzaSize == Size.Small) price -= 2.00m;
                 if (PizzaSize == Size.Large) price += 2.00m;
                 if (PizzaCrust == Crust.DeepDish) price += 1.00m;
+                foreach(PizzaTopping p in PossibleToppings)
+                {
+                    price += 1.00m;
+                }
                 return price;
             }
         }
 
         /// <summary>
-        /// The calories per slice in the MeatsPizza instance
+        /// The ammount of calories per slice of pizza
         /// </summary>
         public uint CaloriesPerEach
         {
@@ -117,10 +146,10 @@ namespace PizzaParlor.Data.Pizzas
                 if (PizzaCrust == Crust.Thin) calories += 150;
                 if (PizzaCrust == Crust.Original) calories += 250;
                 if (PizzaCrust == Crust.DeepDish) calories += 300;
-                if (Sausage) calories += 30;
-                if (Ham) calories += 20;
-                if (Bacon) calories += 20;
-                if (Pepperoni) calories += 20;
+                foreach(PizzaTopping p in PossibleToppings)
+                {
+                    if(p.OnPizza) calories += p.BaseCalories;
+                }
                 if (PizzaSize == Size.Small) return (uint)(calories * 0.75);
                 if (PizzaSize == Size.Large) return (uint)(calories * 1.30);
                 return calories;
@@ -128,18 +157,19 @@ namespace PizzaParlor.Data.Pizzas
         }
 
         /// <summary>
-        /// The total calories in the MeatsPizza instance
+        /// The total ammount of calories for the entire pizza
         /// </summary>
         public uint CaloriesTotal
         {
             get
             {
+
                 return CaloriesPerEach * Slices;
             }
         }
 
         /// <summary>
-        /// Special instructions for the preperation for the MeatsPizza instance
+        /// The Instructions to construct this pizza
         /// </summary>
         public IEnumerable<string> SpecialInstructions
         {
@@ -148,10 +178,10 @@ namespace PizzaParlor.Data.Pizzas
                 List<string> instructions = new();
                 instructions.Add(PizzaSize.ToString());
                 instructions.Add(PizzaCrust.ToString());
-                if (!Sausage) instructions.Add("Hold Sausage");
-                if (!Pepperoni) instructions.Add("Hold Pepperoni");
-                if (!Bacon) instructions.Add("Hold Bacon");
-                if (!Ham) instructions.Add("Hold Ham");
+                foreach(PizzaTopping p in PossibleToppings)
+                {
+                    if(p.OnPizza)instructions.Add($"Add {p.Name}");
+                }
                 return instructions;
             }
         }

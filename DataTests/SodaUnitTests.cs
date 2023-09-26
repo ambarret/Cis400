@@ -143,7 +143,7 @@ namespace DataTests
                 DrinkSize = size,
                 DrinkType = flavor
             };
-            Assert.Equal(cals, s.Calories);
+            Assert.Equal(cals, s.CaloriesTotal);
         }
 
         /// <summary>

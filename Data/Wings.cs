@@ -10,7 +10,7 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The Wings class
     /// </summary>
-    public class Wings
+    public class Wings : IMenuItem
     {
         /// <summary>
         /// The name of the Wings instance

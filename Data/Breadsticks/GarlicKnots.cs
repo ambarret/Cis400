@@ -9,7 +9,7 @@ namespace PizzaParlor.Data.Breadsticks
     /// <summary>
     /// The Garlic Knots Class
     /// </summary>
-    public class GarlicKnots
+    public class GarlicKnots : IMenuItem
     {
         /// <summary>
         /// The name of the Garlic Knots instance

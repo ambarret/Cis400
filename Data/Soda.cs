@@ -12,7 +12,7 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The soda class
     /// </summary>
-    public class Soda
+    public class Soda : IMenuItem
     {
         /// <summary>
         /// The name of the Soda instance
@@ -90,9 +90,20 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
+        /// Calories for this soda instance
+        /// </summary>
+        public uint CaloriesPerEach
+        {
+            get
+            {
+                return CaloriesTotal;
+            }
+        }
+
+        /// <summary>
         /// The calories of this soda instance
         /// </summary>
-        public uint Calories
+        public uint CaloriesTotal
         {
             get
             {

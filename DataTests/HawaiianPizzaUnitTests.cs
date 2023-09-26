@@ -27,18 +27,6 @@
         }
 
         /// <summary>
-        /// Tests that all the toppings is true
-        /// </summary>
-        [Fact]
-        public void AllToppingsAreTrue()
-        {
-            HawaiianPizza p = new();
-            Assert.True(p.Pineapple);
-            Assert.True(p.Onions);
-            Assert.True(p.Ham);
-        }
-
-        /// <summary>
         /// Tests that the default value is true
         /// </summary>
         [Fact]
@@ -121,11 +109,7 @@
         public void CaloriesPerEachTest(bool pineapple, bool ham, bool onions,
                                  Size s, Crust c, uint cals)
         {
-            HawaiianPizza p = new HawaiianPizza();
-
-            p.Pineapple = pineapple;
-            p.Ham = ham;
-            p.Onions = onions;
+            HawaiianPizza p = new HawaiianPizza(pineapple, onions, ham);
 
             p.PizzaSize = s;
             p.PizzaCrust = c;
@@ -171,22 +155,19 @@
         /// <param name="c">The crust of the pizza</param>
         /// <param name="instructions">expected instructions</param>
         [Theory]
-        [InlineData(true, true, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original" })]
-        [InlineData(false, false, false, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish", "Hold Pineapple", "Hold Ham", "Hold Onions" })]
-        [InlineData(true, true, true, Size.Small, Crust.DeepDish, new string[] { "Small", "DeepDish" })]
-        [InlineData(true, true, true, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin" })]
-        [InlineData(false, true, true, Size.Large, Crust.Thin, new string[] { "Large", "Thin", "Hold Pineapple" })]
-        [InlineData(true, false, true, Size.Small, Crust.Original, new string[] { "Small", "Original", "Hold Ham" })]
-        [InlineData(true, true, false, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin", "Hold Onions" })]
-        [InlineData(true, true, true, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish" })]
+        [InlineData(true, true, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Add Pineapple", "Add Ham", "Add Onions" })]
+        [InlineData(false, false, false, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish" })]
+        [InlineData(true, true, true, Size.Small, Crust.DeepDish, new string[] { "Small", "DeepDish", "Add Pineapple", "Add Ham", "Add Onions" })]
+        [InlineData(true, true, true, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin", "Add Pineapple", "Add Ham", "Add Onions" })]
+        [InlineData(false, true, true, Size.Large, Crust.Thin, new string[] { "Large", "Thin", "Add Ham", "Add Onions" })]
+        [InlineData(true, false, true, Size.Small, Crust.Original, new string[] { "Small", "Original", "Add Pineapple", "Add Onions" })]
+        [InlineData(true, true, false, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin", "Add Pineapple", "Add Ham" })]
+        [InlineData(true, true, true, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish", "Add Pineapple", "Add Ham", "Add Onions" })]
         public void SpecialInstructionsAreCorrect(bool pineapple, bool ham, bool onions,
                                  Size s, Crust c, string[] instructions)
         {
-            HawaiianPizza p = new HawaiianPizza
+            HawaiianPizza p = new HawaiianPizza(pineapple, onions, ham)
             {
-                Pineapple = pineapple,
-                Ham = ham,
-                Onions = onions,
                 PizzaSize = s,
                 PizzaCrust = c
             };

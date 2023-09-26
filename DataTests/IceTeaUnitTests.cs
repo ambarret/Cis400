@@ -98,7 +98,7 @@
             {
                 DrinkSize = size,
             };
-            Assert.Equal(calories, (uint)s.Calories);
+            Assert.Equal(calories, (uint)s.CaloriesTotal);
         }
 
         /// <summary>

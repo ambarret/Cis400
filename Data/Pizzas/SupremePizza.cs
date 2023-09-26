@@ -5,7 +5,7 @@ namespace PizzaParlor.Data.Pizzas
     /// <summary>
     /// The definition of the SupremePizza class
     /// </summary>
-    public class SupremePizza
+    public class SupremePizza : IMenuItem
     {
         /// <summary>
         /// The name of the SupremePizza instance
@@ -148,7 +148,6 @@ namespace PizzaParlor.Data.Pizzas
         {
             get
             {
-                //all pizzas have 8 slices
 
                 return CaloriesPerEach * Slices;
             }
