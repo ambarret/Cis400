@@ -168,7 +168,17 @@ namespace DataTests
                 }
                 Assert.Equal(instructions.Length, b.SpecialInstructions.Count());
             }
-          #endregion
+
+        /// <summary>
+        /// Checks that it is assignable to side
+        /// </summary>
+        [Fact]
+        public void IsASide()
+        {
+            GarlicKnots b = new() { };
+            Assert.IsAssignableFrom<Sides>(b);
+        }
+        #endregion
 
     }
 }

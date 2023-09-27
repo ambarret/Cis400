@@ -10,41 +10,17 @@ namespace PizzaParlor.Data.Breadsticks
     /// <summary>
     /// The CinnamonSticks class
     /// </summary>
-    public class CinnamonSticks : IMenuItem
+    public class CinnamonSticks : Sides
     {
         /// <summary>
         /// The name of the Cinnamonsticks instance
         /// </summary>
-        public string Name { get; } = "Cinnamon Sticks";
+        public override string Name { get; } = "Cinnamon Sticks";
 
         /// <summary>
         /// The description of the Cinnamonsticks instance
         /// </summary>
-        public string Description { get; } = "Like breadsticks but for dessert";
-
-        /// <summary>
-        /// Private backing for Count
-        /// </summary>
-        private uint _count = 8;
-
-        /// <summary>
-        /// The ammount of sticks in this Cinnamonsticks instance
-        /// </summary>
-        public uint Count
-        {
-            get
-            {
-                return _count;
-            }
-            set
-            {
-                if (value >= 4 && value <= 12)
-                {
-
-                    _count = value;
-                }
-            }
-        }
+        public override string Description { get; } = "Like breadsticks but for dessert";
 
         /// <summary>
         /// Whether this Cinnamonsticks instance contains Frosting
@@ -54,7 +30,7 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The price of the Cinnamonsticks instance
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -72,7 +48,7 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The calories per stick in the Cinnamonsticks instance
         /// </summary>
-        public uint CaloriesPerEach
+        public override uint CaloriesPerEach
         {
             get
             {
@@ -83,20 +59,9 @@ namespace PizzaParlor.Data.Breadsticks
         }
 
         /// <summary>
-        /// The total calories in the Cinnamonsticks instance
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Count;
-            }
-        }
-
-        /// <summary>
         /// Special instructions for the preperation for the Cinnamonsticks instance
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

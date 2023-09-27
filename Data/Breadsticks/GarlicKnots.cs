@@ -9,46 +9,22 @@ namespace PizzaParlor.Data.Breadsticks
     /// <summary>
     /// The Garlic Knots Class
     /// </summary>
-    public class GarlicKnots : IMenuItem
+    public class GarlicKnots : Sides
     {
         /// <summary>
         /// The name of the Garlic Knots instance
         /// </summary>
-        public string Name { get; } = "Garlic Knots";
+        public override string Name { get; } = "Garlic Knots";
 
         /// <summary>
         /// The description of the Garlic Knots instance
         /// </summary>
-        public string Description { get; } = "Twisted rolls with garlic and butter";
-
-        /// <summary>
-        /// Private backing for Count
-        /// </summary>
-        private uint _count = 8;
-
-        /// <summary>
-        /// The ammount of sticks in this Garlic knots instance
-        /// </summary>
-        public uint Count
-        {
-            get
-            {
-                return _count;
-            }
-            set
-            {
-                if (value >= 4 && value <= 12)
-                {
-
-                    _count = value;
-                }
-            }
-        }
+        public override string Description { get; } = "Twisted rolls with garlic and butter";
 
         /// <summary>
         /// The price of the Garlic Knots instance
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -59,23 +35,12 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The calories per stick in the Garlic Knots instance
         /// </summary>
-        public uint CaloriesPerEach { get; } = 175;
-
-        /// <summary>
-        /// The total calories in the Garlic Knots instance
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Count;
-            }
-        }
+        public override uint CaloriesPerEach { get; } = 175;
 
         /// <summary>
         /// Special instructions for the preperation for the Garlic Knots instance
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

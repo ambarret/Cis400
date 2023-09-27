@@ -6,55 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 using PizzaParlor.Data.Enums;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Drinks
 {
     /// <summary>
     /// The Iced Tea Class
     /// </summary>
-    public class IcedTea : IMenuItem
+    public class IcedTea : Drink
     {
         /// <summary>
         /// The name for the Iced Tea instance
         /// </summary>
-        public string Name { get; } = "Iced Tea";
+        public override string Name { get; } = "Iced Tea";
 
         /// <summary>
         /// The Description for the Iced Tea instance
         /// </summary>
-        public string Description { get; } = "Freshly brewed sweet tea";
-
-        /// <summary>
-        /// Decides weather ice is included for this Iced Tea instance
-        /// </summary>
-        public bool Ice { get; set; } = true;
-
-        /// <summary>
-        /// Private backing field for DrinkSize
-        /// </summary>
-        public Size _size = Size.Medium;
-
-        /// <summary>
-        /// The size of this Iced Tea instance
-        /// </summary>
-        public Size DrinkSize
-        {
-            get
-            {
-                return _size;
-            }
-
-            set
-            {
-                _size = Size.Medium;
-                if (value == Size.Small) _size = Size.Small;
-                if (value == Size.Large) _size = Size.Large;
-            }
-        }
+        public override string Description { get; } = "Freshly brewed sweet tea";
 
         /// <summary>
         /// The price for this Iced Tea instance
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -66,20 +38,9 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The calories for this Iced Tea instance
-        /// </summary>
-        public uint CaloriesPerEach
-        {
-            get
-            {
-                return CaloriesTotal;
-            }
-        }
-
-        /// <summary>
         /// The calories of this Iced Tea instance
         /// </summary>
-        public uint CaloriesTotal
+        public override uint CaloriesTotal
         {
             get
             {
@@ -93,7 +54,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// Special instructions for the preparation of this Iced Tea instance
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

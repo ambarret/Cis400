@@ -190,6 +190,16 @@ namespace DataTests
             }
             Assert.Equal(instructions.Length, w.SpecialInstructions.Count());
         }
+
+        /// <summary>
+        /// Checks that it is assignable to Side
+        /// </summary>
+        [Fact]
+        public void IsASide()
+        {
+            Wings b = new() { };
+            Assert.IsAssignableFrom<Sides>(b);
+        }
         #endregion
     }
 }

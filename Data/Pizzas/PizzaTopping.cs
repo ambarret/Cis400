@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Pizzas
 {
     /// <summary>
     /// Class for the pizza toppings
@@ -18,7 +18,7 @@ namespace PizzaParlor.Data
         /// </summary>
         /// <param name="t">The Topping</param>
         /// <param name="p">Whether or not it is on the pizza</param>
-        public PizzaTopping(Topping t, bool p) 
+        public PizzaTopping(Topping t, bool p)
         {
             ToppingType = t;
             OnPizza = p;
@@ -34,7 +34,7 @@ namespace PizzaParlor.Data
         /// </summary>
         public Topping ToppingType
         {
-            get {return _toppingtype;}
+            get { return _toppingtype; }
             init { _toppingtype = value; }
         }
 
@@ -59,7 +59,7 @@ namespace PizzaParlor.Data
         {
             get
             {
-                switch(_toppingtype)
+                switch (_toppingtype)
                 {
                     case Topping.Sausage:
                         return "Sausage";

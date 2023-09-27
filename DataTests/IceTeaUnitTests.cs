@@ -1,4 +1,6 @@
-﻿namespace DataTests
+﻿using PizzaParlor.Data.Drinks;
+
+namespace DataTests
 {
     public class IceTeaUnitTests
     {
@@ -126,6 +128,15 @@
                 Assert.Contains(instruction, s.SpecialInstructions);
             }
             Assert.Equal(instructions.Length, s.SpecialInstructions.Count());
+        }
+        /// <summary>
+        /// Checks that it is assignable to Drink
+        /// </summary>
+        [Fact]
+        public void IsADrink()
+        {
+            Soda b = new() { };
+            Assert.IsAssignableFrom<Drink>(b);
         }
         #endregion
     }

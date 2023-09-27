@@ -7,50 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using PizzaParlor.Data.Enums;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Drinks
 {
     /// <summary>
     /// The soda class
     /// </summary>
-    public class Soda : IMenuItem
+    public class Soda : Drink
     {
         /// <summary>
         /// The name of the Soda instance
         /// </summary>
-        public string Name { get; } = "Soda";
+        public override string Name { get; } = "Soda";
 
         /// <summary>
         /// The description of the Soda instance
         /// </summary>
-        public string Description { get; } = "Standard fountain drink";
-
-        /// <summary>
-        /// Decides weather ice is included for this soda instance
-        /// </summary>
-        public bool Ice { get; set; } = true;
-
-        /// <summary>
-        /// Private backing field for DrinkSize
-        /// </summary>
-        private Size _size = Size.Medium;
-
-        /// <summary>
-        /// The size of this soda instance
-        /// </summary>
-        public Size DrinkSize
-        {
-            get
-            {
-                return _size;
-            }
-
-            set
-            {
-                _size = Size.Medium;
-                if (value == Size.Small) _size = Size.Small;
-                if (value == Size.Large) _size = Size.Large;
-            }
-        }
+        public override string Description { get; } = "Standard fountain drink";
 
         /// <summary>
         /// private backing field for the DrinkType
@@ -79,7 +51,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price for this soda instance
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -90,20 +62,9 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// Calories for this soda instance
-        /// </summary>
-        public uint CaloriesPerEach
-        {
-            get
-            {
-                return CaloriesTotal;
-            }
-        }
-
-        /// <summary>
         /// The calories of this soda instance
         /// </summary>
-        public uint CaloriesTotal
+        public override uint CaloriesTotal
         {
             get
             {
@@ -120,7 +81,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// Special instructions for the preparation of this Soda instance
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

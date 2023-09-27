@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PizzaParlor.Data.Drinks;
 
 namespace DataTests
 {
@@ -177,6 +178,15 @@ namespace DataTests
             Assert.Equal(instructions.Length, s.SpecialInstructions.Count());
         }
 
+        /// <summary>
+        /// Checks that it is assignable to Drink
+        /// </summary>
+        [Fact]
+        public void IsADrink()
+        {
+            Soda b = new() { };
+            Assert.IsAssignableFrom<Drink>(b);
+        }
         #endregion
     }
 }

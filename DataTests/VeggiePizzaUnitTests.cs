@@ -27,19 +27,6 @@
         }
 
         /// <summary>
-        /// Tests that all the toppings is true
-        /// </summary>
-        [Fact]
-        public void AllToppingsAreTrue()
-        {
-            VeggiePizza p = new();
-            Assert.True(p.Onions);
-            Assert.True(p.Olives);
-            Assert.True(p.Peppers);
-            Assert.True(p.Mushrooms);
-        }
-
-        /// <summary>
         /// Tests that the default value is true
         /// </summary>
         [Fact]
@@ -123,20 +110,13 @@
         public void CaloriesPerEachTest(bool olives, bool peppers, bool onions,
                                 bool mushrooms, Size s, Crust c, uint cals)
         {
-            VeggiePizza p = new VeggiePizza();
+            VeggiePizza p = new VeggiePizza(olives, peppers, onions, mushrooms)
+            {
+                PizzaCrust = c,
+                PizzaSize= s
+            };
 
-
-            p.Peppers = peppers;
-            p.Olives = olives;
-            p.Onions = onions;
-            p.Mushrooms = mushrooms;
-
-            p.PizzaSize = s;
-            p.PizzaCrust = c;
             Assert.Equal(cals, p.CaloriesPerEach);
-
-
-
         }
 
         /// <summary>
@@ -176,25 +156,21 @@
         /// <param name="c">The crust of the pizza</param>
         /// <param name="instructions">expected instructions</param>
         [Theory]
-        [InlineData( true, true, true, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original" })]
-        [InlineData( false, false, false, false, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish", "Hold Olives", "Hold Onions", "Hold Peppers", "Hold Mushrooms" })]
-        [InlineData( true, true, true, true, Size.Small, Crust.DeepDish, new string[] { "Small", "DeepDish" })]
-        [InlineData( true, true, true, true, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin" })]
-        [InlineData( false, true, true, true, Size.Large, Crust.Thin, new string[] { "Large", "Thin", "Hold Olives" })]
-        [InlineData( true, false, true, true, Size.Small, Crust.Original, new string[] { "Small", "Original", "Hold Peppers" })]
-        [InlineData( true, true, false, true, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin", "Hold Onions" })]
-        [InlineData( true, true, true, false, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish", "Hold Mushrooms" })]
+        [InlineData( true, true, true, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Add Olives", "Add Onions", "Add Peppers", "Add Mushrooms" })]
+        [InlineData( false, false, false, false, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish" })]
+        [InlineData( true, true, true, true, Size.Small, Crust.DeepDish, new string[] { "Small", "DeepDish", "Add Olives", "Add Onions", "Add Peppers", "Add Mushrooms" })]
+        [InlineData( true, true, true, true, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin", "Add Olives", "Add Onions", "Add Peppers", "Add Mushrooms" })]
+        [InlineData( false, true, true, true, Size.Large, Crust.Thin, new string[] { "Large", "Thin", "Add Onions", "Add Peppers", "Add Mushrooms" })]
+        [InlineData( true, false, true, true, Size.Small, Crust.Original, new string[] { "Small", "Original", "Add Olives", "Add Onions", "Add Mushrooms" })]
+        [InlineData( true, true, false, true, Size.Medium, Crust.Thin, new string[] { "Medium", "Thin", "Add Olives", "Add Peppers", "Add Mushrooms" })]
+        [InlineData( true, true, true, false, Size.Large, Crust.DeepDish, new string[] { "Large", "DeepDish", "Add Olives", "Add Onions", "Add Peppers" })]
         public void SpecialInstructionsAreCorrect( bool olives, bool peppers, bool onions,
                                 bool mushrooms, Size s, Crust c, string[] instructions)
         {
-            VeggiePizza p = new VeggiePizza
+            VeggiePizza p = new VeggiePizza(olives, peppers, onions, mushrooms)
             {
-                Olives = olives,
-                Peppers = peppers,
-                Onions = onions,
-                Mushrooms = mushrooms,
-                PizzaSize = s,
-                PizzaCrust = c
+                PizzaCrust = c,
+                PizzaSize = s
             };
 
             foreach (string instruction in instructions)
@@ -202,6 +178,16 @@
                 Assert.Contains(instruction, p.SpecialInstructions);
             }
             Assert.Equal(instructions.Length, p.SpecialInstructions.Count());
+        }
+
+        /// <summary>
+        /// Checks that it is assignable to Pizza
+        /// </summary>
+        [Fact]
+        public void IsAPizza()
+        {
+            VeggiePizza b = new() { };
+            Assert.IsAssignableFrom<Pizza>(b);
         }
         #endregion
 

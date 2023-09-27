@@ -178,6 +178,16 @@
             }
             Assert.Equal(instructions.Length, p.SpecialInstructions.Count());
         }
+
+        /// <summary>
+        /// Checks that it is assignable to Pizza
+        /// </summary>
+        [Fact]
+        public void IsAPizza()
+        {
+            HawaiianPizza b = new() { };
+            Assert.IsAssignableFrom<Pizza>(b);
+        }
         #endregion
     }
 }

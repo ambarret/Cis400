@@ -176,6 +176,16 @@
             }
             Assert.Equal(instructions.Length, b.SpecialInstructions.Count());
         }
+
+        /// <summary>
+        /// Checks that it is assignable to side
+        /// </summary>
+        [Fact]
+        public void IsASide()
+        {
+            BreadSticks b = new() { };
+            Assert.IsAssignableFrom<Sides>(b);
+        }
         #endregion
 
     }

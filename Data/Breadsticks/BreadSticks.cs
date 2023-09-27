@@ -9,41 +9,17 @@ namespace PizzaParlor.Data.Breadsticks
     /// <summary>
     /// The BreadStick class
     /// </summary>
-    public class BreadSticks : IMenuItem
+    public class BreadSticks : Sides
     {
         /// <summary>
         /// The name of the Breadsticks instance
         /// </summary>
-        public string Name { get; } = "Breadsticks";
+        public override string Name { get; } = "Breadsticks";
 
         /// <summary>
         /// The description of the Breadsticks instance
         /// </summary>
-        public string Description { get; } = "Soft buttery breadsticks";
-
-        /// <summary>
-        /// private backing field for the Count Property
-        /// </summary>
-        private uint _count = 8;
-
-        /// <summary>
-        /// The ammount of sticks in this Breadsticks instance
-        /// </summary>
-        public uint Count
-        {
-            get
-            {
-                return _count;
-            }
-            set
-            {
-                if (value >= 4 && value <= 12)
-                {
-
-                    _count = value;
-                }
-            }
-        }
+        public override string Description { get; } = "Soft buttery breadsticks";
 
         /// <summary>
         /// Whether this Breadsticks instance contains Pepperoni
@@ -53,7 +29,7 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The price of the Breadsticks instance
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -71,7 +47,7 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The calories per stick in the Breadsticks instance
         /// </summary>
-        public uint CaloriesPerEach
+        public override uint CaloriesPerEach
         {
             get
             {
@@ -82,20 +58,9 @@ namespace PizzaParlor.Data.Breadsticks
         }
 
         /// <summary>
-        /// The total calories in the Breadsticks instance
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return Count * CaloriesPerEach;
-            }
-        }
-
-        /// <summary>
         /// Special instructions for the preperation for the Breadsticks instance
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

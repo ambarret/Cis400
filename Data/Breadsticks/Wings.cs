@@ -5,22 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using PizzaParlor.Data.Enums;
 
-namespace PizzaParlor.Data
+namespace PizzaParlor.Data.Breadsticks
 {
     /// <summary>
     /// The Wings class
     /// </summary>
-    public class Wings : IMenuItem
+    public class Wings : Sides
     {
         /// <summary>
         /// The name of the Wings instance
         /// </summary>
-        public string Name { get; } = "Wings";
+        public override string Name { get; } = "Wings";
 
         /// <summary>
         /// The description of the Wings instance
         /// </summary>
-        public string Description { get; } = "Chicken wings tossed in sauce";
+        public override string Description { get; } = "Chicken wings tossed in sauce";
 
         /// <summary>
         /// private backing field for the wingsauce property
@@ -53,12 +53,12 @@ namespace PizzaParlor.Data
         /// <summary>
         /// private backing field for the Count Property
         /// </summary>
-        private uint _count = 5;
+        protected new uint _count = 5;
 
         /// <summary>
         /// The ammount of sticks in this Wings instance
         /// </summary>
-        public uint Count
+        public override uint Count
         {
             get
             {
@@ -68,7 +68,7 @@ namespace PizzaParlor.Data
             {
                 if (value >= 4 && value <= 12)
                 {
-                     _count = value;
+                    _count = value;
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price for this instance of the Wings class
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -88,7 +88,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The calories for each Wing in this instance
         /// </summary>
-        public uint CaloriesPerEach
+        public override uint CaloriesPerEach
         {
             get
             {
@@ -100,20 +100,9 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// the total ammount of calories for this wings instance
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return Count * CaloriesPerEach;
-            }
-        }
-
-        /// <summary>
         /// Special instructions for the preperation for the Wings instance
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

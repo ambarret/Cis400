@@ -14,31 +14,31 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The name for this menu item
         /// </summary>
-        string Name { get; }
+        public string Name { get; }
 
         /// <summary>
         /// The description for this menu item
         /// </summary>
-        string Description { get; }
+        public string Description { get; }
 
         /// <summary>
         /// The price for this menu item
         /// </summary>
-        decimal Price { get; }
+        public decimal Price { get; }
 
         /// <summary>
         /// The calories for each item in the menu item
         /// </summary>
-        uint CaloriesPerEach { get; }
+        public uint CaloriesPerEach { get; }
 
         /// <summary>
         /// The total calories for all of that menu item
         /// </summary>
-        uint CaloriesTotal { get; }
+        public uint CaloriesTotal { get; }
 
         /// <summary>
         /// The instructions for that menu item
         /// </summary>
-        IEnumerable<string> SpecialInstructions { get; }
+        public IEnumerable<string> SpecialInstructions { get; }
     }
 }
