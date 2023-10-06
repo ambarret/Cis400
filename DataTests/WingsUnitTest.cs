@@ -24,6 +24,16 @@ namespace DataTests
         }
 
         /// <summary>
+        /// Tests that the ToString is Wings
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            Wings w = new();
+            Assert.Equal("Wings", w.ToString());
+        }
+
+        /// <summary>
         /// Tests that the Description is correct
         /// </summary>
         [Fact]

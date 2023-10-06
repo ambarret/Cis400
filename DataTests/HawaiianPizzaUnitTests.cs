@@ -17,6 +17,16 @@
         }
 
         /// <summary>
+        /// Tests that the ToSting for Hawaiian Pizza
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            HawaiianPizza p = new HawaiianPizza();
+            Assert.Equal("Hawaiian Pizza", p.ToString());
+        }
+
+        /// <summary>
         /// Tests the the Description is correct
         /// </summary>
         [Fact]

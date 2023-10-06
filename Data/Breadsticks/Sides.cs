@@ -70,5 +70,14 @@ namespace PizzaParlor.Data.Breadsticks
                 }
             }
         }
+
+        /// <summary>
+        /// Returns the name of the side instance
+        /// </summary>
+        /// <returns>The name</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

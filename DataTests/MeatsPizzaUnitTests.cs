@@ -17,6 +17,16 @@
         }
 
         /// <summary>
+        /// Tests that the ToString for Meats Pizza
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            MeatsPizza p = new MeatsPizza();
+            Assert.Equal("Meats Pizza", p.ToString());
+        }
+
+        /// <summary>
         /// Tests the the Description is correct
         /// </summary>
         [Fact]

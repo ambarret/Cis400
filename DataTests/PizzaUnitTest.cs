@@ -21,6 +21,16 @@ namespace DataTests
             Assert.Equal("Build-Your-Own Pizza", p.Name);
         }
 
+        /// <summary>
+        /// Check ToString is correct
+        /// </summary>
+        [Fact]
+        public void ToStringIsCorrect()
+        {
+            Pizza p = new();
+            Assert.Equal("Build-Your-Own Pizza", p.ToString());
+        }
+
         [Fact]
         public void DescIsCorrect()
         {

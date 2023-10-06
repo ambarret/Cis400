@@ -74,5 +74,14 @@ namespace PizzaParlor.Data.Drinks
                 return instructions;
             }
         }
+
+        /// <summary>
+        /// Returns the name of the drink instance
+        /// </summary>
+        /// <returns>The name</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

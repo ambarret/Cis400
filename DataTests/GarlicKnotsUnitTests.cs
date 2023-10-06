@@ -22,10 +22,20 @@ namespace DataTests
                 Assert.Equal("Garlic Knots", b.Name);
             }
 
-            /// <summary>
-            /// Tests the the Description is correct
-            /// </summary>
-            [Fact]
+        /// <summary>
+        /// Tests that the ToString for GarlicKnots
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            GarlicKnots b = new();
+            Assert.Equal("Garlic Knots", b.ToString());
+        }
+
+        /// <summary>
+        /// Tests the the Description is correct
+        /// </summary>
+        [Fact]
             public void DescriptionIsTheCorrectPhrase()
             {
                 GarlicKnots b = new();

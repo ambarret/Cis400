@@ -19,6 +19,17 @@ namespace DataTests
             Assert.Equal("Supreme Pizza", p.Name);
         }
 
+
+        /// <summary>
+        /// Tests that the ToString for Supreme Pizza
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            SupremePizza p = new SupremePizza();
+            Assert.Equal("Supreme Pizza", p.ToString());
+        }
+
         /// <summary>
         /// Tests the the Description is correct
         /// </summary>

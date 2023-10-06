@@ -185,5 +185,14 @@ namespace PizzaParlor.Data.Pizzas
                 return instructions;
             }
         }
+
+        /// <summary>
+        /// Returns the name of the pizza instance
+        /// </summary>
+        /// <returns>The name</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

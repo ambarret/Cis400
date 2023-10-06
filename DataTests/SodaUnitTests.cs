@@ -25,6 +25,16 @@ namespace DataTests
         }
 
         /// <summary>
+        /// Tests that the ToString is Soda
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        { 
+            Soda s = new();
+            Assert.Equal("Soda", s.ToString());
+        }
+
+        /// <summary>
         /// Tests that the description is correct
         /// </summary>
         [Fact]

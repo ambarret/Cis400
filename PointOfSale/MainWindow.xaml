@@ -1,0 +1,41 @@
+﻿<Window x:Class="PizzaParlor.PointOfSale.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PizzaParlor.PointOfSale"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <local:MenuItemSelectionControl Grid.Row="0" Grid.Column="0"/>
+        <local:OrderSummaryControl Grid.RowSpan="2" Grid.Column="1"/>
+
+        <Button x:Name="Cancel" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Left" FontSize="20">Cancel Order</Button>
+        <Button x:Name="Back" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Center" FontSize="20">Complete Order</Button>
+        <Button x:Name="Complete" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Right" FontSize="20">Back to Menu</Button>
+        
+        
+    </Grid>
+</Window>

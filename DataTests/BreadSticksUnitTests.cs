@@ -17,6 +17,16 @@
         }
 
         /// <summary>
+        /// Tests that the ToString for Breadsticks
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        { 
+            BreadSticks b = new();
+            Assert.Equal("Breadsticks", b.ToString());
+        }
+
+        /// <summary>
         /// Tests the the Description is correct
         /// </summary>
         [Fact]

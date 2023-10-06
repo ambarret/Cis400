@@ -2,6 +2,9 @@
 
 namespace DataTests
 {
+    /// <summary>
+    /// Tests for the Ice Tea class
+    /// </summary>
     public class IceTeaUnitTests
     {
         #region Defaults
@@ -14,6 +17,16 @@ namespace DataTests
         {
             IcedTea s = new();
             Assert.Equal("Iced Tea", s.Name);
+        }
+
+        /// <summary>
+        /// Tests that the ToString is IcedTea
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            IcedTea s = new();
+            Assert.Equal("Iced Tea", s.ToString());
         }
 
         /// <summary>

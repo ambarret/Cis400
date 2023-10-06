@@ -17,6 +17,16 @@
         }
 
         /// <summary>
+        /// Tests that the ToString for CinnamonSticks
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            CinnamonSticks b = new();
+            Assert.Equal("Cinnamon Sticks", b.ToString());
+        }
+
+        /// <summary>
         /// Tests the the Description is correct
         /// </summary>
         [Fact]
