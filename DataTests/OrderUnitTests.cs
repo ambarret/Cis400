@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataTests
 {
+    /// <summary>
+    /// Tests for the OrderUnitTests
+    /// </summary>
     public class OrderUnitTests
     {
         /// <summary>
@@ -127,6 +133,204 @@ namespace DataTests
             MockMenuItem menuItem = new MockMenuItem();
             order.Add(menuItem);
             Assert.True(order.Remove(menuItem));
+        }
+
+        /// <summary>
+        /// Tests that the order number is unique
+        /// </summary>
+        [Fact]
+        public void OrderNumberIsUnique()
+        {
+            Order order1 = new Order();
+            Order order2 = new Order();
+            Order order3 = new Order();
+
+            Assert.NotEqual(order1.Number, order2.Number);
+            Assert.NotEqual(order2.Number, order3.Number);
+            Assert.NotEqual(order3.Number, order1.Number);
+        }
+
+        /// <summary>
+        /// Date time records the Date
+        /// </summary>
+        [Fact]
+        public void PlacedAtWorks()
+        {
+            DateTime lower = DateTime.Now;
+            Order order = new Order();
+            DateTime upper = DateTime.Now;
+            Assert.True((order.PlacedAt >= lower) && (order.PlacedAt <= upper));
+        }
+
+        /// <summary>
+        /// Checks there is a propertyChange when changing the TaxRate
+        /// </summary>
+        [Fact]
+        public void ChangingTaxRateShouldNotifyOfPropertyChange()
+        {
+            Order order = new Order();
+            Assert.PropertyChanged(order, "Tax", () => {
+                order.TaxRate = 0.15m;
+            });
+        }
+
+        /// <summary>
+        /// Checks there is a propertyChange when adding an item
+        /// </summary>
+        [Fact]
+        public void AddingItemsShouldNotifyOfPropertyChanged()
+        {
+            Order order = new Order();
+            MockMenuItem a = new MockMenuItem();
+            Assert.PropertyChanged(order, "Total", () =>
+            {
+                order.Add(a);
+            });
+            Assert.PropertyChanged(order, "SubTotal", () =>
+            {
+                order.Add(a);
+            });
+            Assert.PropertyChanged(order, "Tax", () =>
+            {
+                order.Add(a);
+            });
+        }
+
+        /// <summary>
+        /// Checks there is a propertyChange when removing an item
+        /// </summary>
+        [Fact]
+        public void RemovingItemsShouldNotifyOfPropertyChanged()
+        {
+            Order order = new Order();
+            MockMenuItem a = new MockMenuItem();
+            order.Add(a);
+            Assert.PropertyChanged(order, "Total", () =>
+            {
+                order.Remove(a);
+            });
+            order.Add(a);
+            Assert.PropertyChanged(order, "SubTotal", () =>
+            {
+                order.Remove(a);
+            });
+            order.Add(a);
+            Assert.PropertyChanged(order, "Tax", () =>
+            {
+                order.Remove(a);
+            });
+        }
+
+        /// <summary>
+        /// Checks there is a propertyChange when Clearing an item
+        /// </summary>
+        [Fact]
+        public void ClearingItemsShouldNotifyOfPropertyChanged()
+        {
+            Order order = new Order();
+            MockMenuItem a = new MockMenuItem();
+            order.Add(a);
+            Assert.PropertyChanged(order, "Total", () =>
+            {
+                order.Clear();
+            });
+            order.Add(a);
+            Assert.PropertyChanged(order, "SubTotal", () =>
+            {
+                order.Clear();
+            });
+            order.Add(a);
+            Assert.PropertyChanged(order, "Tax", () =>
+            {
+                order.Clear();
+            });
+        }
+
+        /// <summary>
+        /// Checks that INotifyChanged is implemented correctly
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyPropertyChanged()
+        {
+            Order order = new Order();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(order);
+        }
+
+        /// <summary>
+        /// Checking that Collection Change does the correct action
+        /// </summary>
+        [Fact]
+        public void AddingItemShouldRaiseCollectionChangedEvent()
+        {
+            ObservableCollection<IMenuItem> o = new ObservableCollection<IMenuItem>();
+            var a = new MockMenuItem();
+
+            bool notifySucceeded = false;
+
+            o.CollectionChanged += (sender, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    notifySucceeded = true;
+                }
+            };
+
+            o.Add(a);
+
+            Assert.True(notifySucceeded);
+
+        }
+
+        /// <summary>
+        /// Checking that Collection Change does the correct action
+        /// </summary>
+        [Fact]
+        public void RemovingItemShouldRaiseCollectionChangedEvent()
+        {
+            ObservableCollection<IMenuItem> o = new ObservableCollection<IMenuItem>();
+            var a = new MockMenuItem();
+
+            bool notifySucceeded = false;
+
+            o.CollectionChanged += (sender, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    notifySucceeded = true;
+                }
+            };
+
+            o.Add(a);
+            o.Remove(a);
+
+            Assert.True(notifySucceeded);
+
+        }
+
+        /// <summary>
+        /// Checking that Collection Change does the correct action
+        /// </summary>
+        [Fact]
+        public void ClearingItemsShouldRaiseCollectionChangedEvent()
+        {
+            ObservableCollection<IMenuItem> o = new ObservableCollection<IMenuItem>();
+            var a = new MockMenuItem();
+
+            bool notifySucceeded = false;
+
+            o.CollectionChanged += (sender, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Reset)
+                {
+                    notifySucceeded = true;
+                }
+            };
+
+            o.Add(a);
+            o.Clear();
+
+            Assert.True(notifySucceeded);
+
         }
     }
 }

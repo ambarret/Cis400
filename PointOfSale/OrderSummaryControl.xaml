@@ -7,16 +7,33 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <TextBlock DockPanel.Dock="Top" Text="Order #" FontSize="25"/>
-        <TextBlock DockPanel.Dock="Top" Text="Date" FontSize="25"/>
-        <TextBlock DockPanel.Dock="Bottom" Text="Total" FontSize="25"/>
-        <TextBlock DockPanel.Dock="Bottom" Text="Tax" FontSize="15"/>
-        <TextBlock DockPanel.Dock="Bottom" Text="Subtotal" FontSize="15"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <TextBlock Text="Order #" FontSize="25"/>
+            <TextBlock Text="{Binding Path=Number}" FontSize="25"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <TextBlock DockPanel.Dock="Top" Text="Date " FontSize="15"/>
+            <TextBlock Text="{Binding Path=PlacedAt}" FontSize="15"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <TextBlock Text="Total : " FontSize="25"/>
+            <TextBlock Text="{Binding Path=Total}" FontSize="25"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <TextBlock Text="Tax : "/>
+            <TextBlock Text="{Binding Path=Tax}"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <TextBlock Text="Subtotal : "/>
+            <TextBlock Text="{Binding Path=Subtotal}"/>
+        </StackPanel>
         <ListView ItemsSource="{Binding}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=Name}" FontSize="25"/>
+                        <TextBlock Text="     " FontSize="25"/>
+                        <TextBlock Text="{Binding Path=Price}" FontSize="25"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

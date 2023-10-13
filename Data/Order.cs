@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -11,12 +13,15 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The list of the order
     /// </summary>
-    public class Order : ICollection<IMenuItem>
+    public class Order : ICollection<IMenuItem>, INotifyPropertyChanged, INotifyCollectionChanged
     {
         /// <summary>
         /// The list of menu items
         /// </summary>
         private readonly List<IMenuItem> _items = new List<IMenuItem>();
+
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// The count of items 
@@ -35,6 +40,10 @@ namespace PizzaParlor.Data
         public void Add(IMenuItem item)
         {
             _items.Add(item);
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
         }
 
         /// <summary>
@@ -43,6 +52,10 @@ namespace PizzaParlor.Data
         public void Clear()
         {
             _items.Clear();
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
         }
 
         /// <summary>
@@ -81,6 +94,10 @@ namespace PizzaParlor.Data
         /// <returns>bool whether or not it completed</returns>
         public bool Remove(IMenuItem item)
         {
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
             return _items.Remove(item);
         }
 
@@ -110,9 +127,22 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The TaxRate
+        /// private backing field for taxrate
         /// </summary>
-        public decimal TaxRate { get; set; } = 9.15m;
+        private decimal _taxRate = 9.15m;
+
+        /// <summary>
+        /// a getter and setter for tax rate it is initialized to 9.15 percent
+        /// </summary>
+        public decimal TaxRate
+        {
+            get { return _taxRate; }
+            set
+            {
+                _taxRate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            }
+        }
 
         /// <summary>
         /// The total tax
@@ -134,6 +164,38 @@ namespace PizzaParlor.Data
             {
                 return Tax + Subtotal;
             }
+        }
+
+        /// <summary>
+        /// The previous order number
+        /// </summary>
+        private static int _lastNumber = 0;
+
+        /// <summary>
+        /// private backing field for the order number
+        /// </summary>
+        private int _number;
+
+
+        /// <summary>
+        /// The order Number
+        /// </summary>
+        public int Number { get { return _number; } }
+
+        /// <summary>
+        /// private backing field for the Time the order was made
+        /// </summary>
+        private DateTime _placedAt;
+
+        /// <summary>
+        /// The Time the order was made
+        /// </summary>
+        public DateTime PlacedAt { get { return _placedAt; } }
+
+        public Order()
+        {
+            _number = ++_lastNumber;
+            _placedAt = DateTime.Now;
         }
     }
 }
