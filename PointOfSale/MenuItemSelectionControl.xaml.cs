@@ -24,10 +24,15 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class MenuItemSelectionControl : UserControl
     {
+        /// <summary>
+        /// The Initializer
+        /// </summary>
         public MenuItemSelectionControl()
         {
             InitializeComponent();
         }
+
+        public event EventHandler<AddItemEventArgs> MenuItemAdded;
 
         /// <summary>
         /// adds the Pizza class to the order
@@ -39,6 +44,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new Pizza());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -52,6 +58,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new MeatsPizza());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -65,6 +72,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new VeggiePizza());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -78,6 +86,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new SupremePizza());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -91,6 +100,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new HawaiianPizza());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -104,6 +114,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new BreadSticks());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -117,6 +128,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new CinnamonSticks());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -130,6 +142,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new GarlicKnots());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -143,6 +156,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new Wings());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -156,6 +170,7 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new IcedTea());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
@@ -169,9 +184,17 @@ namespace PizzaParlor.PointOfSale
             if (DataContext is ICollection<IMenuItem> list)
             {
                 list.Add(new Soda());
+                OnMenuItemAdded(new AddItemEventArgs(list.Last()));
             }
         }
 
-
+        /// <summary>
+        /// Invoke method
+        /// </summary>
+        /// <param name="e">The argument</param>
+        public void OnMenuItemAdded(AddItemEventArgs e)
+        {
+            MenuItemAdded?.Invoke(this, e);
+        }
     }
 }

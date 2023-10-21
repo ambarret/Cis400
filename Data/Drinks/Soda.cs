@@ -45,6 +45,9 @@ namespace PizzaParlor.Data.Drinks
                 if (value == SodaFlavor.DrPepper) _flavor = SodaFlavor.DrPepper;
                 if (value == SodaFlavor.Sprite) _flavor = SodaFlavor.Sprite;
                 if (value == SodaFlavor.RootBeer) _flavor = SodaFlavor.RootBeer;
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesTotal));
             }
         }
 

@@ -42,13 +42,32 @@ namespace PizzaParlor.Data.Breadsticks
                 if (value == WingSauce.Mild) _sauce = WingSauce.Mild;
                 if (value == WingSauce.Hot) _sauce = WingSauce.Hot;
                 if (value == WingSauce.HoneyBBQ) _sauce = WingSauce.HoneyBBQ;
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
             }
         }
 
         /// <summary>
+        /// Backing Field for Wings
+        /// </summary>
+        private bool _boneIn = true;
+
+        /// <summary>
         /// Checks if this Wings instance requires bone in
         /// </summary>
-        public bool BoneIn { get; set; } = true;
+        public bool BoneIn 
+        {
+            get { return _boneIn; }
+            set {
+                _boneIn = value;               
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+            } 
+        }
 
         /// <summary>
         /// private backing field for the Count Property
@@ -58,7 +77,7 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The ammount of sticks in this Wings instance
         /// </summary>
-        public override uint Count
+        public override uint SideCount
         {
             get
             {
@@ -69,6 +88,10 @@ namespace PizzaParlor.Data.Breadsticks
                 if (value >= 4 && value <= 12)
                 {
                     _count = value;
+                    OnPropertyChanged(nameof(Price));
+                    OnPropertyChanged(nameof(SpecialInstructions));
+                    OnPropertyChanged(nameof(CaloriesPerEach));
+                    OnPropertyChanged(nameof(CaloriesTotal));
                 }
             }
         }
@@ -80,8 +103,8 @@ namespace PizzaParlor.Data.Breadsticks
         {
             get
             {
-                if (BoneIn) return 1.50m * Count;
-                return 1.75m * Count;
+                if (BoneIn) return 1.50m * SideCount;
+                return 1.75m * SideCount;
             }
         }
 
@@ -107,8 +130,8 @@ namespace PizzaParlor.Data.Breadsticks
             get
             {
                 List<string> instructions = new();
-                if (BoneIn) instructions.Add($"{Count} Bone-In Wings");
-                else instructions.Add($"{Count} Boneless Wings");
+                if (BoneIn) instructions.Add($"{SideCount} Bone-In Wings");
+                else instructions.Add($"{SideCount} Boneless Wings");
                 instructions.Add(Sauce.ToString());
                 return instructions;
             }

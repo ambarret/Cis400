@@ -47,13 +47,13 @@
         }
 
         /// <summary>
-        /// Tests that the default is a count of 8
+        /// Tests that the default is a SideCount of 8
         /// </summary>
         [Fact]
-        public void DefaultCountIs8()
+        public void DefaultSideCountIs8()
         {
             BreadSticks b = new();
-            Assert.Equal((uint)8, b.Count);
+            Assert.Equal((uint)8, b.SideCount);
         }
 
         /// <summary>
@@ -96,20 +96,20 @@
         [InlineData(0,15,8)]
         [InlineData(1,203,8)]
         [InlineData(uint.MinValue,uint.MaxValue, 8)]
-        public void CountIsCorrectlyBounded(uint f,uint s, uint e)
+        public void SideCountIsCorrectlyBounded(uint f,uint s, uint e)
         {
             BreadSticks b = new()
             {
-                Count = f
+                SideCount = f
             };
-            b.Count = s;
-            Assert.Equal(e, b.Count);
+            b.SideCount = s;
+            Assert.Equal(e, b.SideCount);
         }
 
         /// <summary>
-        /// Tests that the Price will change when count and cheese are changed
+        /// Tests that the Price will change when SideCount and cheese are changed
         /// </summary>
-        /// <param name="c">The count of breadsticks</param>
+        /// <param name="c">The SideCount of breadsticks</param>
         /// <param name="cheese">Whether the breadsticks have cheese</param>
         /// <param name="price">The expected price for the sticks</param>
         [Theory]
@@ -126,15 +126,15 @@
             BreadSticks b = new()
             {
                 Cheese = cheese,
-                Count = c
+                SideCount = c
             };
             Assert.Equal(price, b.Price);
         }
 
         /// <summary>
-        /// Tests that the total ammount of calories change with the change of cheese and count
+        /// Tests that the total ammount of calories change with the change of cheese and SideCount
         /// </summary>
-        /// <param name="c">The count of breadsticks</param>
+        /// <param name="c">The SideCount of breadsticks</param>
         /// <param name="cheese">Wheather The sticks have cheese on them</param>
         /// <param name="cals">The expected Calories</param>
         [Theory]
@@ -151,7 +151,7 @@
             BreadSticks b = new()
             {
                 Cheese = cheese,
-                Count = c
+                SideCount = c
             };
             Assert.Equal(cals, b.CaloriesTotal);
         }
@@ -159,7 +159,7 @@
         /// <summary>
         /// Tests that the special instructions are correct
         /// </summary>
-        /// <param name="c">The count of breadsticks</param>
+        /// <param name="c">The SideCount of breadsticks</param>
         /// <param name="cheese">Wheather The sticks have cheese on them</param>
         /// <param name="instructions">The expected instructions for the breadsticks</param>
         [Theory]
@@ -177,7 +177,7 @@
             BreadSticks b = new()
             {
                 Cheese = cheese,
-                Count = c
+                SideCount = c
             };
 
             foreach (string instruction in instructions)

@@ -28,7 +28,7 @@ namespace PizzaParlor.Data.Breadsticks
         {
             get
             {
-                return Count * 0.75m;
+                return SideCount * 0.75m;
             }
         }
 
@@ -45,7 +45,7 @@ namespace PizzaParlor.Data.Breadsticks
             get
             {
                 List<string> instructions = new();
-                instructions.Add($"{Count} Garlic Knots");
+                instructions.Add($"{SideCount} Garlic Knots");
                 return instructions;
             }
         }

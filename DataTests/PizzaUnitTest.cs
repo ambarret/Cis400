@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PizzaParlor.Data.Drinks;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +78,68 @@ namespace DataTests
         {
             Pizza p = new();
             Assert.Equal((uint)250, p.CaloriesPerEach);
+        }
+
+        /// <summary>
+        /// Checks the NotifyPropertyChanges
+        /// </summary>
+        /// <param name="crust">The crust of the Pizza</param>
+        /// <param name="propertyName">The propertyName</param>
+        [Theory]
+        [InlineData(Crust.DeepDish, "Price")]
+        [InlineData(Crust.DeepDish, "CaloriesPerEach")]
+        [InlineData(Crust.DeepDish, "CaloriesTotal")]
+        [InlineData(Crust.DeepDish, "SpecialInstructions")]
+        [InlineData(Crust.Thin, "Price")]
+        [InlineData(Crust.Thin, "CaloriesPerEach")]
+        [InlineData(Crust.Thin, "CaloriesTotal")]
+        [InlineData(Crust.Thin, "SpecialInstructions")]
+        [InlineData(Crust.Original, "Price")]
+        [InlineData(Crust.Original, "CaloriesPerEach")]
+        [InlineData(Crust.Original, "CaloriesTotal")]
+        [InlineData(Crust.Original, "SpecialInstructions")]
+        public void ChangingCrustShouldNotifyOfPropertyChanges(Crust crust, string propertyName)
+        {
+            Pizza p = new();
+            Assert.PropertyChanged(p, propertyName, () => {
+                p.PizzaCrust = crust;
+            });
+        }
+
+        /// <summary>
+        /// Checks the NotifyPropertyChanges
+        /// </summary>
+        /// <param name="size">The size of the Pizza</param>
+        /// <param name="propertyName">The propertyName</param>
+        [Theory]
+        [InlineData(Size.Medium, "Price")]
+        [InlineData(Size.Medium, "CaloriesPerEach")]
+        [InlineData(Size.Medium, "CaloriesTotal")]
+        [InlineData(Size.Medium, "SpecialInstructions")]
+        [InlineData(Size.Small, "Price")]
+        [InlineData(Size.Small, "CaloriesPerEach")]
+        [InlineData(Size.Small, "CaloriesTotal")]
+        [InlineData(Size.Small, "SpecialInstructions")]
+        [InlineData(Size.Large, "Price")]
+        [InlineData(Size.Large, "CaloriesPerEach")]
+        [InlineData(Size.Large, "CaloriesTotal")]
+        [InlineData(Size.Large, "SpecialInstructions")]
+        public void ChangingSizeShouldNotifyOfPropertyChanges(Size size, string propertyName)
+        {
+            Pizza p = new();
+            Assert.PropertyChanged(p, propertyName, () => {
+                p.PizzaSize = size;
+            });
+        }
+
+        /// <summary>
+        /// Checks the INotifyChanged is Implemented
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            Pizza pizza = new();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(pizza);
         }
     }
 }

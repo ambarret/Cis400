@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -197,6 +198,46 @@ namespace DataTests
             Soda b = new() { };
             Assert.IsAssignableFrom<Drink>(b);
         }
+
+        /// <summary>
+        /// Checks the NotifyPropertyChanges
+        /// </summary>
+        /// <param name="size">The size of the drink</param>
+        /// <param name="propertyName">The propertyName</param>
+        [Theory]
+        [InlineData(Size.Small, "DrinkSize")]
+        [InlineData(Size.Medium, "DrinkSize")]
+        [InlineData(Size.Large, "DrinkSize")]
+        [InlineData(Size.Small, "Price")]
+        [InlineData(Size.Medium, "Price")]
+        [InlineData(Size.Large, "Price")]
+        [InlineData(Size.Small, "CaloriesTotal")]
+        [InlineData(Size.Medium, "CaloriesTotal")]
+        [InlineData(Size.Large, "CaloriesTotal")]
+        [InlineData(Size.Small, "CaloriesPerEach")]
+        [InlineData(Size.Medium, "CaloriesPerEach")]
+        [InlineData(Size.Large, "CaloriesPerEach")]
+        [InlineData(Size.Small, "SpecialInstructions")]
+        [InlineData(Size.Medium, "SpecialInstructions")]
+        [InlineData(Size.Large, "SpecialInstructions")]
+        public void ChangingSizeShouldNotifyOfPropertyChanges(Size size, string propertyName)
+        {
+            Soda soda = new();
+            Assert.PropertyChanged(soda, propertyName, () => {
+                soda.DrinkSize = size;
+            });
+        }
+
+        /// <summary>
+        /// Checks the INotifyChanged is Implemented
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            Soda soda = new();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(soda);
+        }
+
         #endregion
     }
 }

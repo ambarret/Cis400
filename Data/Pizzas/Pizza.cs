@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace PizzaParlor.Data.Pizzas
     /// <summary>
     /// Class for Custom built pizzas
     /// </summary>
-    public class Pizza : IMenuItem
+    public class Pizza : INotifyPropertyChanged, IMenuItem
     {
         public Pizza()
         {
@@ -26,6 +27,17 @@ namespace PizzaParlor.Data.Pizzas
 
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Method to Invoke Property Changed
+        /// </summary>
+        /// <param name="propertyName">The Property to change</param>
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         /// <summary>
         /// Adds a topping to the Pizza
         /// </summary>
@@ -35,6 +47,11 @@ namespace PizzaParlor.Data.Pizzas
             PossibleToppings.Remove(new PizzaTopping(t, false));
             PossibleToppings.Remove(new PizzaTopping(t, true));
             PossibleToppings.Add(new PizzaTopping(t, true));
+
+            OnPropertyChanged(nameof(Price));
+            OnPropertyChanged(nameof(SpecialInstructions));
+            OnPropertyChanged(nameof(CaloriesPerEach));
+            OnPropertyChanged(nameof(CaloriesTotal));
 
         }
 
@@ -50,6 +67,11 @@ namespace PizzaParlor.Data.Pizzas
                 PossibleToppings.Remove(search);
                 PossibleToppings.Add(new PizzaTopping(t, false));
             }
+
+            OnPropertyChanged(nameof(Price));
+            OnPropertyChanged(nameof(SpecialInstructions));
+            OnPropertyChanged(nameof(CaloriesPerEach));
+            OnPropertyChanged(nameof(CaloriesTotal));
         }
 
         /// <summary>
@@ -86,6 +108,10 @@ namespace PizzaParlor.Data.Pizzas
                 if (value == Size.Large) _size = Size.Large;
                 if (value == Size.Medium) _size = Size.Medium;
                 if (value == Size.Small) _size = Size.Small;
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
             }
         }
 
@@ -108,6 +134,10 @@ namespace PizzaParlor.Data.Pizzas
                 if (value == Crust.Thin) _crust = Crust.Thin;
                 if (value == Crust.Original) _crust = Crust.Original;
                 if (value == Crust.DeepDish) _crust = Crust.DeepDish;
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
             }
         }
 

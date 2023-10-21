@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzaParlor.PointOfSale"
+        xmlns:folder="clr-namespace:PizzaParlor.PointOfSale.IMenuItemControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080">
 
@@ -29,12 +30,19 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <local:MenuItemSelectionControl Grid.Row="0" Grid.Column="0"/>
-        <local:OrderSummaryControl Grid.RowSpan="2" Grid.Column="1"/>
+        <local:MenuItemSelectionControl x:Name="MenuItem"   Visibility="Visible"/>
+        <local:WingsControl x:Name="WingsControl"  Visibility="Hidden"/>
+        <folder:BreadSticks x:Name="BreadSticks"  Visibility="Hidden"/>
+        <folder:Cinnamon x:Name="CinnamonSticks"  Visibility="Hidden"/>
+        <folder:Garlic x:Name="GarlicSticks"  Visibility="Hidden"/>
+        <folder:PizzaControl x:Name="Pizza"  Visibility="Hidden"/>
+        <folder:IcedTeaControl x:Name="IceTea"  Visibility="Hidden"/>
+        <folder:SodaControl x:Name="Soda" Visibility="Hidden"/>
+        <local:OrderSummaryControl x:Name="OrderSummary" Grid.RowSpan="2" Grid.Column="1"/>
 
-        <Button x:Name="Cancel" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Left" FontSize="20">Cancel Order</Button>
-        <Button x:Name="Back" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Center" FontSize="20">Complete Order</Button>
-        <Button x:Name="Complete" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Right" FontSize="20">Back to Menu</Button>
+        <Button x:Name="Cancel" Click="ClearOrder" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Left" FontSize="20">Cancel Order</Button>
+        <Button x:Name="Complete" Click="ClearOrder" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Center" FontSize="20">Complete Order</Button>
+        <Button x:Name="Back" Grid.Row="1" Click="BackButtonHandler" Grid.Column="0" Width ="250" HorizontalAlignment="Right" FontSize="20">Back to Menu</Button>
         
         
     </Grid>

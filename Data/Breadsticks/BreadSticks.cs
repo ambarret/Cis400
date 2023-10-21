@@ -22,9 +22,25 @@ namespace PizzaParlor.Data.Breadsticks
         public override string Description { get; } = "Soft buttery breadsticks";
 
         /// <summary>
+        /// Backing field for Cheese
+        /// </summary>
+        private bool _cheese = false;
+
+        /// <summary>
         /// Whether this Breadsticks instance contains Pepperoni
         /// </summary>
-        public bool Cheese { get; set; } = false;
+        public bool Cheese
+        {
+            get { return _cheese; }
+            set
+            {
+                _cheese = value;
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+            }
+        }
 
         /// <summary>
         /// The price of the Breadsticks instance
@@ -35,11 +51,11 @@ namespace PizzaParlor.Data.Breadsticks
             {
                 if (Cheese)
                 {
-                    return Count * 1.00m;
+                    return SideCount * 1.00m;
                 }
                 else
                 {
-                    return Count * 0.75m;
+                    return SideCount * 0.75m;
                 }
             }
         }
@@ -65,8 +81,8 @@ namespace PizzaParlor.Data.Breadsticks
             get
             {
                 List<string> instructions = new();
-                if (!Cheese) instructions.Add($"{Count} BreadSticks");
-                else instructions.Add($"{Count} CheeseSticks");
+                if (!Cheese) instructions.Add($"{SideCount} BreadSticks");
+                else instructions.Add($"{SideCount} CheeseSticks");
                 return instructions;
             }
         }

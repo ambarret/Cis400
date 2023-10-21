@@ -44,13 +44,13 @@ namespace DataTests
         }
 
         /// <summary>
-        /// Tests the the count default is five
+        /// Tests the the SideCount default is five
         /// </summary>
         [Fact]
-        public void CountDefaultIsfive()
+        public void SideCountDefaultIsfive()
         {
             Wings w = new();
-            Assert.Equal((uint)5, w.Count);
+            Assert.Equal((uint)5, w.SideCount);
         }
 
         /// <summary>
@@ -109,20 +109,20 @@ namespace DataTests
         [InlineData(9,0,9)]
         [InlineData(0,10,10)]
         [InlineData(uint.MaxValue,uint.MinValue,5)]
-        public void CountIsBoundedBetween4and12(uint f, uint s, uint e)
+        public void SideCountIsBoundedBetween4and12(uint f, uint s, uint e)
         {
             Wings w = new()
             {
-                Count = f
+                SideCount = f
             };
-            w.Count = s;
-            Assert.Equal(e, w.Count);
+            w.SideCount = s;
+            Assert.Equal(e, w.SideCount);
         }
 
         /// <summary>
         /// This tests the price adjusts correctly
         /// </summary>
-        /// <param name="c">The count of wings</param>
+        /// <param name="c">The SideCount of wings</param>
         /// <param name="b">Whether the wings are bone in</param>
         /// <param name="p">The expected price</param>
         [Theory]
@@ -138,7 +138,7 @@ namespace DataTests
         {
             Wings w = new()
             {
-                Count = c,
+                SideCount = c,
                 BoneIn = b
             };
             Assert.Equal(p, w.Price);
@@ -147,7 +147,7 @@ namespace DataTests
         /// <summary>
         /// Tests that the calories are calculated correctly
         /// </summary>
-        /// <param name="c">The count of wings</param>
+        /// <param name="c">The SideCount of wings</param>
         /// <param name="b">Whether the wings are bone in</param>
         /// <param name="s">The Sauce for the wings</param>
         /// <param name="e">The expected value</param>
@@ -163,7 +163,7 @@ namespace DataTests
         {
             Wings w = new()
             {
-                Count = c,
+                SideCount = c,
                 BoneIn = b,
                 Sauce = s
             };
@@ -173,7 +173,7 @@ namespace DataTests
         /// <summary>
         /// Tests that the special instructions for Wings is correct
         /// </summary>
-        /// <param name="c">The count of wings</param>
+        /// <param name="c">The SideCount of wings</param>
         /// <param name="b">Whether the wings are bone in</param>
         /// <param name="s">The Sauce for the wings</param>
         /// <param name="instructions">The expected instructions</param>
@@ -190,7 +190,7 @@ namespace DataTests
         {
             Wings w = new()
             {
-                Count = c,
+                SideCount = c,
                 BoneIn = b,
                 Sauce = s
             };

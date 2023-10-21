@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,19 @@ namespace PizzaParlor.Data.Breadsticks
     /// <summary>
     /// The sides class
     /// </summary>
-    public class Sides : IMenuItem
+    public class Sides : INotifyPropertyChanged, IMenuItem
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Method to Invoke Property Changed
+        /// </summary>
+        /// <param name="propertyName">The Property to change</param>
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         /// <summary>
         /// The name for this Side
         /// </summary>
@@ -39,7 +51,7 @@ namespace PizzaParlor.Data.Breadsticks
         {
             get
             {
-                return Count * CaloriesPerEach;
+                return SideCount * CaloriesPerEach;
             }
         }
 
@@ -56,7 +68,7 @@ namespace PizzaParlor.Data.Breadsticks
         /// <summary>
         /// The ammount of sticks in this Wings instance
         /// </summary>
-        public virtual uint Count
+        public virtual uint SideCount
         {
             get
             {
@@ -67,6 +79,10 @@ namespace PizzaParlor.Data.Breadsticks
                 if (value >= 4 && value <= 12)
                 {
                     _count = value;
+                    OnPropertyChanged(nameof(Price));
+                    OnPropertyChanged(nameof(SpecialInstructions));
+                    OnPropertyChanged(nameof(CaloriesPerEach));
+                    OnPropertyChanged(nameof(CaloriesTotal));
                 }
             }
         }

@@ -23,9 +23,25 @@ namespace PizzaParlor.Data.Breadsticks
         public override string Description { get; } = "Like breadsticks but for dessert";
 
         /// <summary>
+        /// Backing Field for Frosting
+        /// </summary>
+        private bool _frosting = true;
+
+        /// <summary>
         /// Whether this Cinnamonsticks instance contains Frosting
         /// </summary>
-        public bool Frosting { get; set; } = true;
+        public bool Frosting
+        {
+            get { return _frosting; }
+            set 
+            {
+                _frosting = value;
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+            }
+        }
 
         /// <summary>
         /// The price of the Cinnamonsticks instance
@@ -36,11 +52,11 @@ namespace PizzaParlor.Data.Breadsticks
             {
                 if (Frosting)
                 {
-                    return 0.90m * Count;
+                    return 0.90m * SideCount;
                 }
                 else
                 {
-                    return 0.75m * Count;
+                    return 0.75m * SideCount;
                 }
             }
         }
@@ -66,7 +82,7 @@ namespace PizzaParlor.Data.Breadsticks
             get
             {
                 List<string> instructions = new();
-                instructions.Add($"{Count} CinnamonSticks");
+                instructions.Add($"{SideCount} CinnamonSticks");
                 if (!Frosting) instructions.Add("Hold Frosting");
                 return instructions;
             }
