@@ -12,20 +12,38 @@ namespace PizzaParlor.Data.Pizzas
     /// </summary>
     public class VeggiePizza : Pizza
     {
+
         public VeggiePizza(bool ol, bool p, bool on, bool m)
         {
-            if(ol) AddTopping(Topping.Olives);
-            if(p) AddTopping(Topping.Peppers);
-            if(on) AddTopping(Topping.Onions);
-            if(m) AddTopping(Topping.Mushrooms);
+            PossibleToppings.Clear();
+            if (ol) PossibleToppings.Add(new PizzaTopping(Topping.Olives, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Olives, false));
+            if (p) PossibleToppings.Add(new PizzaTopping(Topping.Peppers, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Peppers, false));
+            if (on) PossibleToppings.Add(new PizzaTopping(Topping.Onions, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Onions, false));
+            if (m) PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, false));
+
+            
+            foreach(PizzaTopping pi in PossibleToppings)
+            {
+                pi.PropertyChanged += OnToppingChanged;
+            }
         }
 
         public VeggiePizza() 
         {
-            AddTopping(Topping.Olives);
-            AddTopping(Topping.Peppers);
-            AddTopping(Topping.Onions);
-            AddTopping(Topping.Mushrooms);
+            PossibleToppings.Clear();
+            PossibleToppings.Add(new PizzaTopping(Topping.Olives, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Peppers, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Onions, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, true));
+
+            foreach (PizzaTopping p in PossibleToppings)
+            {
+                p.PropertyChanged += OnToppingChanged;
+            }
         }
 
         /// <summary>

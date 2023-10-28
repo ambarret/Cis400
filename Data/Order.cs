@@ -94,11 +94,19 @@ namespace PizzaParlor.Data
         /// <returns>bool whether or not it completed</returns>
         public bool Remove(IMenuItem item)
         {
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
-            return _items.Remove(item);
+            int index = _items.IndexOf(item);
+
+            if(index > 0)
+            {
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+                _items.RemoveAt(index);
+                return true;
+            }
+            return false;
+
         }
 
         /// <summary>

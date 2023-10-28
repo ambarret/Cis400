@@ -13,6 +13,8 @@ namespace PizzaParlor.Data.Pizzas
     /// </summary>
     public class Pizza : INotifyPropertyChanged, IMenuItem
     {
+        public virtual event PropertyChangedEventHandler? PropertyChanged;
+
         public Pizza()
         {
             PossibleToppings.Add(new PizzaTopping(Topping.Sausage, false));
@@ -25,9 +27,26 @@ namespace PizzaParlor.Data.Pizzas
             PossibleToppings.Add(new PizzaTopping(Topping.Peppers, false));
             PossibleToppings.Add(new PizzaTopping(Topping.Pineapple, false));
 
+            foreach(PizzaTopping p in PossibleToppings)
+            {
+                p.PropertyChanged += OnToppingChanged;
+            }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnToppingChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if(sender is PizzaTopping p)
+            {
+                if(p.OnPizza)
+                {
+                    AddTopping(p.ToppingType);
+                }
+                else
+                {
+                    RemoveTopping(p.ToppingType);
+                }
+            }
+        }
 
         /// <summary>
         /// Method to Invoke Property Changed
@@ -44,10 +63,6 @@ namespace PizzaParlor.Data.Pizzas
         /// <param name="t">The topping to add</param>
         public void AddTopping(Topping t)
         {
-            PossibleToppings.Remove(new PizzaTopping(t, false));
-            PossibleToppings.Remove(new PizzaTopping(t, true));
-            PossibleToppings.Add(new PizzaTopping(t, true));
-
             OnPropertyChanged(nameof(Price));
             OnPropertyChanged(nameof(SpecialInstructions));
             OnPropertyChanged(nameof(CaloriesPerEach));
@@ -144,7 +159,7 @@ namespace PizzaParlor.Data.Pizzas
         /// <summary>
         /// List of the possible toppings for this pizza
         /// </summary>
-        public List<PizzaTopping> PossibleToppings { get; } = new List<PizzaTopping>();
+        public virtual List<PizzaTopping> PossibleToppings { get; } = new List<PizzaTopping>();
 
         /// <summary>
         /// The price of the pizza

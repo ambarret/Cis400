@@ -29,7 +29,8 @@ namespace PizzaParlor.PointOfSale
             InitializeComponent();
         }
 
-        public event EventHandler<AddItemEventArgs> MenuItemAdded;
+        public event EventHandler<ItemChangedEventArgs> MenuItemAdded;
+        public event EventHandler<ItemChangedEventArgs> MenuItemRemoved;
 
         /// <summary>
         /// Click event to edit the listview
@@ -40,7 +41,7 @@ namespace PizzaParlor.PointOfSale
         {
             if (DataContext is ICollection<IMenuItem> list && listView.SelectedItem is IMenuItem item)
             {
-                MenuItemAdded?.Invoke(this, new AddItemEventArgs(item));
+                MenuItemAdded?.Invoke(this, new ItemChangedEventArgs(item));
             }
         }
     }

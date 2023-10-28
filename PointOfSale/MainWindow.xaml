@@ -31,6 +31,7 @@
         </Grid.RowDefinitions>
 
         <local:MenuItemSelectionControl x:Name="MenuItem"   Visibility="Visible"/>
+        <local:PaymentControl x:Name="PaymentControl" Visibility="Hidden"/>
         <local:WingsControl x:Name="WingsControl"  Visibility="Hidden"/>
         <folder:BreadSticks x:Name="BreadSticks"  Visibility="Hidden"/>
         <folder:Cinnamon x:Name="CinnamonSticks"  Visibility="Hidden"/>
@@ -41,7 +42,7 @@
         <local:OrderSummaryControl x:Name="OrderSummary" Grid.RowSpan="2" Grid.Column="1"/>
 
         <Button x:Name="Cancel" Click="ClearOrder" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Left" FontSize="20">Cancel Order</Button>
-        <Button x:Name="Complete" Click="ClearOrder" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Center" FontSize="20">Complete Order</Button>
+        <Button x:Name="Complete" Click="CompleteOrder" Grid.Row="1" Grid.Column="0" Width ="250" HorizontalAlignment="Center" FontSize="20">Complete Order</Button>
         <Button x:Name="Back" Grid.Row="1" Click="BackButtonHandler" Grid.Column="0" Width ="250" HorizontalAlignment="Right" FontSize="20">Back to Menu</Button>
         
         

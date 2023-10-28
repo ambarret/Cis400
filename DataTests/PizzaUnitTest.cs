@@ -131,6 +131,27 @@ namespace DataTests
                 p.PizzaSize = size;
             });
         }
+        /// <summary>
+        /// Checks the INotify chenge
+        /// </summary>
+        /// <param name="t">The Topping</param>
+        [Theory]
+        [InlineData(Topping.Onions)]
+        [InlineData(Topping.Pepperoni)]
+        [InlineData(Topping.Sausage)]
+        [InlineData(Topping.Ham)]
+        [InlineData(Topping.Bacon)]
+        [InlineData(Topping.Peppers)]
+        [InlineData(Topping.Olives)]
+        [InlineData(Topping.Mushrooms)]
+        public void ChangingToppingsShouldNotifyPropertyChange(Topping t)
+        {
+            PizzaTopping p = new PizzaTopping(t, true);
+            Assert.PropertyChanged(p, "OnPizza", () =>
+            {
+                p.OnPizza = false;
+            });
+        }
 
         /// <summary>
         /// Checks the INotifyChanged is Implemented

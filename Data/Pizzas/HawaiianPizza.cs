@@ -12,17 +12,37 @@ namespace PizzaParlor.Data.Pizzas
     /// </summary>
     public class HawaiianPizza : Pizza
     {
+
         public HawaiianPizza(bool p, bool o, bool h)
         {
-            if(p) AddTopping(Topping.Pineapple);
-            if(o) AddTopping(Topping.Onions);
-            if(h) AddTopping(Topping.Ham);
+            PossibleToppings.Clear();
+            if (p) PossibleToppings.Add(new PizzaTopping(Topping.Pineapple, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Pineapple, false));
+            if (h) PossibleToppings.Add(new PizzaTopping(Topping.Ham, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Ham, false));
+            if (o) PossibleToppings.Add(new PizzaTopping(Topping.Onions, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Onions, false));
+
+
+            foreach (PizzaTopping pi in PossibleToppings)
+            {
+                pi.PropertyChanged += OnToppingChanged;
+            }
         }
+
+
         public HawaiianPizza()
         {
-            AddTopping(Topping.Pineapple);
-            AddTopping(Topping.Onions);
-            AddTopping(Topping.Ham);
+            PossibleToppings.Clear();
+            PossibleToppings.Add(new PizzaTopping(Topping.Pineapple, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Onions, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Ham, true));
+
+
+            foreach (PizzaTopping p in PossibleToppings)
+            {
+                p.PropertyChanged += OnToppingChanged;
+            }
         }
         /// <summary>
         /// The name of the HawaiianPizza instance

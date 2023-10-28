@@ -1,4 +1,5 @@
 ﻿using PizzaParlor.Data.Enums;
+using System.ComponentModel;
 
 namespace PizzaParlor.Data.Pizzas
 {
@@ -7,24 +8,45 @@ namespace PizzaParlor.Data.Pizzas
     /// </summary>
     public class SupremePizza : Pizza
     {
+
         public SupremePizza(bool s, bool pi, bool o, bool ps, bool on, bool m)
         {
-            if (s) AddTopping(Topping.Sausage);
-            if (pi) AddTopping(Topping.Pepperoni);
-            if (o) AddTopping(Topping.Olives);
-            if (ps) AddTopping(Topping.Peppers);
-            if (on) AddTopping(Topping.Onions);
-            if (m) AddTopping(Topping.Mushrooms);
+            PossibleToppings.Clear();
+            if (s) PossibleToppings.Add(new PizzaTopping(Topping.Sausage, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Sausage, false));
+            if (pi) PossibleToppings.Add(new PizzaTopping(Topping.Pepperoni, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Pepperoni, false));
+            if (o) PossibleToppings.Add(new PizzaTopping(Topping.Olives, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Olives, false));
+            if (ps) PossibleToppings.Add(new PizzaTopping(Topping.Peppers, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Peppers, false));
+            if (on) PossibleToppings.Add(new PizzaTopping(Topping.Onions, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Onions, false));
+            if (m) PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, true));
+            else PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, false));
+
+            foreach (PizzaTopping p in PossibleToppings)
+            {
+                p.PropertyChanged += OnToppingChanged;
+            }
         }
+
 
         public SupremePizza()
         {
-            AddTopping(Topping.Sausage);
-            AddTopping(Topping.Pepperoni);
-            AddTopping(Topping.Olives);
-            AddTopping(Topping.Peppers);
-            AddTopping(Topping.Onions);
-            AddTopping(Topping.Mushrooms);
+            PossibleToppings.Clear();
+            PossibleToppings.Add(new PizzaTopping(Topping.Sausage, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Pepperoni, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Olives, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Peppers, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Onions, true));
+            PossibleToppings.Add(new PizzaTopping(Topping.Mushrooms, true));
+
+
+            foreach (PizzaTopping p in PossibleToppings)
+            {
+                p.PropertyChanged += OnToppingChanged;
+            }
         }
         /// <summary>
         /// The name of the SupremePizza instance

@@ -28,6 +28,11 @@ namespace PizzaParlor.PointOfSale
             DataContext = new Order();
             MenuItem.MenuItemAdded += ItemWasAdded;
             OrderSummary.MenuItemAdded += ItemWasAdded;
+
+            OrderSummary.MenuItemRemoved += HandleMenuItemRemoved;
+
+            PaymentControl.PropertyChanged += OrderFinalized;
+
         }
 
         /// <summary>
@@ -40,6 +45,41 @@ namespace PizzaParlor.PointOfSale
             DataContext = new Order();
         }
 
+        private void OrderFinalized(object sender, EventArgs e)
+        {
+            MenuItem.Visibility = Visibility.Visible;
+            PaymentControl.Visibility = Visibility.Hidden;
+            WingsControl.Visibility = Visibility.Hidden;
+            BreadSticks.Visibility = Visibility.Hidden;
+            GarlicSticks.Visibility = Visibility.Hidden;
+            CinnamonSticks.Visibility = Visibility.Hidden;
+            Pizza.Visibility = Visibility.Hidden;
+            Soda.Visibility = Visibility.Hidden;
+            IceTea.Visibility = Visibility.Hidden;
+
+            ClearOrder(sender, e);
+        }
+
+        private void CompleteOrder(object sender, EventArgs e)
+        {
+            MenuItem.Visibility = Visibility.Hidden;
+            PaymentControl.Visibility = Visibility.Visible;
+            WingsControl.Visibility = Visibility.Hidden;
+            BreadSticks.Visibility = Visibility.Hidden;
+            GarlicSticks.Visibility = Visibility.Hidden;
+            CinnamonSticks.Visibility = Visibility.Hidden;
+            Pizza.Visibility = Visibility.Hidden;
+            Soda.Visibility = Visibility.Hidden;
+            IceTea.Visibility = Visibility.Hidden;
+
+            if(DataContext is Order order)
+            {
+                PaymentViewModel paymentViewModel = new PaymentViewModel(order);
+                PaymentControl.DataContext = paymentViewModel;
+            }
+
+        }
+
         /// <summary>
         /// Handler for the back button
         /// </summary>
@@ -48,6 +88,7 @@ namespace PizzaParlor.PointOfSale
         private void BackButtonHandler(object sender, RoutedEventArgs e)
         {
             MenuItem.Visibility = Visibility.Visible;
+            PaymentControl.Visibility = Visibility.Hidden;
             WingsControl.Visibility = Visibility.Hidden;
             BreadSticks.Visibility = Visibility.Hidden;
             GarlicSticks.Visibility = Visibility.Hidden;
@@ -57,14 +98,23 @@ namespace PizzaParlor.PointOfSale
             IceTea.Visibility = Visibility.Hidden;
         }
 
+        private void HandleMenuItemRemoved(object? sender, ItemChangedEventArgs e)
+        {
+            if(DataContext is Order order)
+            {
+                order.Remove(e.Item);
+            }
+        }
+
         /// <summary>
         /// Handles When an Item is added
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The argument</param>
-        public void ItemWasAdded(object? sender, AddItemEventArgs e)
+        public void ItemWasAdded(object? sender, ItemChangedEventArgs e)
         {
             MenuItem.Visibility = Visibility.Hidden;
+            PaymentControl.Visibility= Visibility.Hidden;
             WingsControl.Visibility = Visibility.Hidden;
             BreadSticks.Visibility = Visibility.Hidden;
             GarlicSticks.Visibility = Visibility.Hidden;
@@ -97,6 +147,7 @@ namespace PizzaParlor.PointOfSale
                 case "Veggie Pizza":
                     Pizza.Visibility = Visibility.Visible;
                     Pizza.DataContext = e.Item;
+                    Pizza.LoadToppings();
                     break;
                 case "Iced Tea":
                     IceTea.Visibility = Visibility.Visible;

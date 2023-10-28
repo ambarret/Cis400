@@ -15,7 +15,6 @@
             <TextBlock DockPanel.Dock="Top" Text="Date " FontSize="15"/>
             <TextBlock Text="{Binding Path=PlacedAt}" FontSize="15"/>
         </StackPanel>
-        <TextBlock Text="Double Click To Edit!" FontSize="15" DockPanel.Dock="Top"/>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <TextBlock Text="Total : " FontSize="25"/>
             <TextBlock Text="{Binding Path=Total}" FontSize="25"/>
@@ -31,7 +30,7 @@
         <ListView x:Name="listView" MouseDoubleClick="ListView_MouseDoubleClick" ItemsSource="{Binding}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel x:Name="stackPanel" Orientation="Vertical">
                         <TextBlock FontSize="25" TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{} {1}  {0}">

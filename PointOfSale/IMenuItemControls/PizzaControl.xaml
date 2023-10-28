@@ -29,7 +29,10 @@
             <TextBlock Text="Calories Per: " FontSize="30"/>
             <TextBlock Text="{Binding Path=CaloriesPerEach}" FontSize="30"/>
         </StackPanel>
-        <ComboBox ItemsSource="{Binding Source={StaticResource crust}}" SelectedItem="{Binding Path= PizzaCrust}" Grid.Column="1" Grid.Row="3" FontSize="30"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource crust}}" SelectedItem="{Binding Path= PizzaCrust}" Grid.Column="0" Grid.Row="4" FontSize="30"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource sizes}}" SelectedItem="{Binding Path= PizzaSize}"  Grid.Column="0" Grid.Row="3" FontSize="30"/>
+        <DockPanel x:Name="ToppingDock" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="4">
+            <TextBlock DockPanel.Dock="Top" FontSize="15">Toppings</TextBlock>
+        </DockPanel>
         </Grid>
 </UserControl>

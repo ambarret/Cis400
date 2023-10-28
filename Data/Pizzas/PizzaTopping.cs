@@ -11,8 +11,11 @@ namespace PizzaParlor.Data.Pizzas
     /// <summary>
     /// Class for the pizza toppings
     /// </summary>
-    public class PizzaTopping
+    public class PizzaTopping : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// Constructor for the pizza toppings
         /// </summary>
@@ -48,8 +51,15 @@ namespace PizzaParlor.Data.Pizzas
         /// </summary>
         public bool OnPizza
         {
-            get { return _onpizza; }
-            init { _onpizza = value; }
+            get 
+            { 
+                return _onpizza; 
+            }
+            set 
+            {
+                _onpizza = value; 
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(OnPizza)));
+            }
         }
 
         /// <summary>
