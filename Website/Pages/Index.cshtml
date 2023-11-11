@@ -1,0 +1,73 @@
+﻿@page
+@using PizzaParlor.Data;
+@using PizzaParlor.Data.Pizzas;
+@using PizzaParlor.Data.Breadsticks;
+@using PizzaParlor.Data.Drinks;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Pizza Parlor</h1>
+    <p>Welcome to the Pizza Parlor!</p>
+
+
+    <h1 id="pizza">Pizza</h1>
+        <ul>
+            @foreach (Pizza pizza in Menu.Pizzas)
+            {
+            <li>
+                <div class="pizza_details">
+                    <h3>@pizza.Name</h3>
+                    <div>
+                        @foreach(string instruction in pizza.SpecialInstructions)
+                        {
+                            <div>@instruction</div>
+                        }
+                    </div>
+                    <div>Price: @pizza.Price</div>
+                    <div>Calories Per Slice: @pizza.CaloriesPerEach</div>
+                </div>
+            </li>
+            }
+    </ul>
+    <h1 id="sides">Sides</h1>
+    <ul>
+        @foreach (Sides side in Menu.Sides)
+        {
+            <li>
+                <div class="pizza_details">
+                    <h3>@side.Name</h3>
+                    <div>
+                        @foreach (string instruction in side.SpecialInstructions)
+                        {
+                            <div>@instruction</div>
+                        }
+                    </div>
+                    <div>Price: @side.Price</div>
+                    <div>Calories per item: @side.CaloriesPerEach</div>
+                </div>
+            </li>
+        }
+    </ul>
+    <h1 id="drinks">Drinks</h1>
+    <ul>
+        @foreach (Drink drink in Menu.Drinks)
+        {
+            <li>
+                <div class="pizza_details">
+                    <h3>@drink.Name</h3>
+                    <div>
+                        @foreach (string instruction in drink.SpecialInstructions)
+                        {
+                            <div>@instruction</div>
+                        }
+                    </div>
+                    <div>Price: @drink.Price</div>
+                    <div>Calories: @drink.CaloriesPerEach</div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
