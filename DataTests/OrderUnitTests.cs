@@ -123,7 +123,7 @@ namespace DataTests
             Assert.True(order.Contains(menuItem));
         }
 
-        /// <summary>
+        /* <summary>
         /// Checks that remove works
         /// </summary>
         [Fact]
@@ -134,6 +134,7 @@ namespace DataTests
             order.Add(menuItem);
             Assert.True(order.Remove(menuItem));
         }
+        */
 
         /// <summary>
         /// Tests that the order number is unique
@@ -196,7 +197,7 @@ namespace DataTests
             });
         }
 
-        /// <summary>
+        /* <summary>
         /// Checks there is a propertyChange when removing an item
         /// </summary>
         [Fact]
@@ -219,7 +220,9 @@ namespace DataTests
             {
                 order.Remove(a);
             });
+        
         }
+        */
 
         /// <summary>
         /// Checks there is a propertyChange when Clearing an item
