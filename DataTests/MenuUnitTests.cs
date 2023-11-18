@@ -74,5 +74,92 @@ namespace DataTests
             Assert.Equal(45+18+7, fullMenu.Count);
 
         }
+
+        [Theory]
+        [InlineData(null, 45)]
+        [InlineData("", 45)]
+        [InlineData("Supreme", 9)]
+        [InlineData("Supreme Pizza", 9)]
+        [InlineData("Pizza Supreme", 9)]
+        [InlineData("SuPrEME", 9)]
+        [InlineData("Veggie", 9)]
+        [InlineData("wING", 0)]
+        public void TestingPizzaSearch(string term, int count)
+        {
+            IEnumerable<IMenuItem> items = Menu.PizzaSearch(term);
+            Assert.Equal(count, items.Count());
+        }
+
+        [Theory]
+        [InlineData(null, 7)]
+        [InlineData("", 7)]
+        [InlineData("Sticks", 2)]
+        [InlineData("Bread Sticks", 1)]
+        [InlineData("Sticks Bread", 1)]
+        [InlineData("BreAd STIcks", 1)]
+        [InlineData("Cinnamon", 1)]
+        [InlineData("wING", 4)]
+        public void TestingSidesSearch(string term, int count)
+        {
+            IEnumerable<IMenuItem> items = Menu.SideSearch(term);
+            Assert.Equal(count, items.Count());
+        }
+
+        [Theory]
+        [InlineData(null, 18)]
+        [InlineData("", 18)]
+        [InlineData("Soda", 15)]
+        [InlineData("Tea", 3)]
+        [InlineData("TeA", 3)]
+        [InlineData("SODA", 15)]
+        public void TestingDrinksSearch(string term, int count)
+        {
+            IEnumerable<IMenuItem> items = Menu.DrinkSearch(term);
+            Assert.Equal(count, items.Count());
+        }
+
+        [Theory]
+        [InlineData(null, 507, 70)]
+        [InlineData(507, null, 0)]
+        [InlineData(0, 0, 3)]
+        [InlineData(0, 100, 3)]
+        [InlineData(100, 200, 26)]
+        [InlineData(200, 300, 29)]
+        [InlineData(300, 400, 12)]
+        [InlineData(400, 507, 6)]
+        public void CaloriesSearchWorks(uint min, uint max, int count)
+        {
+            IEnumerable<IMenuItem> pizza = Menu.PizzaSearch("");
+            IEnumerable<IMenuItem> drink = Menu.DrinkSearch("");
+            IEnumerable<IMenuItem> side = Menu.SideSearch("");
+            List<IMenuItem> result = (List<IMenuItem>) Menu.Calories(pizza, min, max);
+            IEnumerable<IMenuItem> drinkres = Menu.Calories(drink, min, max);
+            IEnumerable <IMenuItem> sideres = Menu.Calories(side, min, max);
+            foreach (IMenuItem item in drinkres) { result.Add(item); }
+            foreach (IMenuItem item in sideres) { result.Add(item); }
+            Assert.Equal(count, result.Count());
+        }
+
+        [Theory]
+        [InlineData(null, 21.99, 70)]
+        [InlineData(21.99, null, 0)]
+        [InlineData(0, 0, 0)]
+        [InlineData(0, 5, 18)]
+        [InlineData(5, 10, 7)]
+        [InlineData(10, 15, 23)]
+        [InlineData(15, 20, 19)]
+        [InlineData(20, 25, 3)]
+        public void PriceSearchWorks(decimal min, decimal max, int count)
+        {
+            IEnumerable<IMenuItem> pizza = Menu.PizzaSearch("");
+            IEnumerable<IMenuItem> drink = Menu.DrinkSearch("");
+            IEnumerable<IMenuItem> side = Menu.SideSearch("");
+            List<IMenuItem> result = (List<IMenuItem>)Menu.Price(pizza, min, max);
+            IEnumerable<IMenuItem> drinkres = Menu.Price(drink, min, max);
+            IEnumerable<IMenuItem> sideres = Menu.Price(side, min, max);
+            foreach (IMenuItem item in drinkres) { result.Add(item); }
+            foreach (IMenuItem item in sideres) { result.Add(item); }
+            Assert.Equal(count, result.Count());
+        }
     }
 }

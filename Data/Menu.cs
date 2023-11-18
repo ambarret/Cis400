@@ -133,5 +133,118 @@ namespace PizzaParlor.Data
                 return full;
             }
         }
+
+        public static IEnumerable<IMenuItem> PizzaSearch (string terms)
+        {
+            if (terms == null || terms.Length == 0) return Pizzas;
+            List<IMenuItem> results = new List<IMenuItem>();
+            List<IMenuItem> temp = (List<IMenuItem>)Pizzas;
+            string[] splitterms = terms.Split(" ");
+            foreach(string term in splitterms)
+            {
+                results = new List<IMenuItem>();
+                foreach(IMenuItem item in temp)
+                {
+                    if (item.Name.Contains(term, StringComparison.CurrentCultureIgnoreCase)) results.Add(item);
+                }
+                temp = results;         
+            }
+
+            return results;
+        }
+
+        public static IEnumerable<IMenuItem> SideSearch(string terms)
+        {
+            if (terms == null || terms.Length == 0) return Sides;
+            List<IMenuItem> results = new List<IMenuItem>();
+            List<IMenuItem> temp = (List<IMenuItem>)Sides;
+            string[] splitterms = terms.Split(" ");
+            foreach (string term in splitterms)
+            {
+                results = new List<IMenuItem>();
+                foreach (IMenuItem item in temp)
+                {
+                    if (item.Name.Contains(term, StringComparison.CurrentCultureIgnoreCase)) results.Add(item);
+                }
+                temp = results;
+            }
+
+            return results;
+        }
+
+        public static IEnumerable<IMenuItem> DrinkSearch(string terms)
+        {
+            if (terms == null || terms.Length == 0) return Drinks;
+            List<IMenuItem> results = new List<IMenuItem>();
+            List<IMenuItem> temp = (List<IMenuItem>)Drinks;
+            string[] splitterms = terms.Split(" ");
+            foreach (string term in splitterms)
+            {
+                results = new List<IMenuItem>();
+                foreach (IMenuItem item in temp)
+                {
+                    if (item.Name.Contains(term, StringComparison.CurrentCultureIgnoreCase)) results.Add(item);
+                }
+                temp = results;
+            }
+
+            return results;
+        }
+
+        public static IEnumerable<IMenuItem> Calories(IEnumerable<IMenuItem> items, uint? min, uint? max)
+        {
+            if (min == null && max == null) return items;
+            List<IMenuItem> results = new List<IMenuItem> ();
+            if(min == null)
+            {
+                foreach(IMenuItem item in items)
+                {
+                    if(item.CaloriesPerEach <= max) results.Add(item);
+                }
+            }
+            else if(max == null)
+            {
+                foreach (IMenuItem item in items)
+                {
+                    if (item.CaloriesPerEach >= min) results.Add(item);
+                }
+            }
+            else
+            {
+                foreach (IMenuItem item in items)
+                {
+                    if(item.CaloriesPerEach <= max && item.CaloriesPerEach >= min) results.Add(item);
+                }
+            }
+            return results;
+        }
+
+        public static IEnumerable<IMenuItem> Price(IEnumerable<IMenuItem> items, decimal? min, decimal? max)
+        {
+            if (min == null && max == null) return items;
+            List<IMenuItem> results = new List<IMenuItem>();
+            if (min == null)
+            {
+                foreach (IMenuItem item in items)
+                {
+                    if (item.Price <= max) results.Add(item);
+                }
+            }
+            else if (max == null)
+            {
+                foreach (IMenuItem item in items)
+                {
+                    if (item.Price >= min) results.Add(item);
+                }
+            }
+            else
+            {
+                foreach (IMenuItem item in items)
+                {
+                    if (item.Price <= max && item.Price >= min) results.Add(item);
+                }
+            }
+            return results;
+        }
     }
 }
